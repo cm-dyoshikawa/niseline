@@ -50,7 +50,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 ### Login API
 
 - [ ] [Issue access token](https://developers.line.biz/ja/reference/line-login/#issue-access-token)
-- [ ] [Verify access token](https://developers.line.biz/ja/reference/line-login/#verify-access-token)
+- [x] [Verify access token](https://developers.line.biz/ja/reference/line-login/#verify-access-token)
 - [ ] [Refresh access token](https://developers.line.biz/ja/reference/line-login/#refresh-access-token)
 - [ ] [Revoke access token](https://developers.line.biz/ja/reference/line-login/#revoke-access-token)
 - [x] [Verify ID token](https://developers.line.biz/ja/reference/line-login/#verify-id-token)
