@@ -31,3 +31,8 @@ GET {{ BASE_URL }}/oauth2/v2.1/verify?access_token=FOO_ID
 
 GET {{ BASE_URL }}/v2/profile
 Authorization: Bearer FOO_ID
+
+###
+
+GET {{ BASE_URL }}/friendship/v1/status
+Authorization: Bearer FOO_ID

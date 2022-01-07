@@ -17,6 +17,11 @@ fastify.register(fastifyFormBody)
 
 const container = bootstrap()
 
+interface ErrorResponseBody {
+  error: string // 'invalid_request'
+  error_description: string // 'access token expired'
+}
+
 /**
  * Debug
  */
@@ -64,11 +69,6 @@ interface VerifyAccessTokenResponseBody {
   expires_in: number // 2591659
 }
 
-interface VerifyAccessTokenErrorResponseBody {
-  error: string // 'invalid_request'
-  error_description: string // 'access token expired'
-}
-
 fastify.get('/oauth2/v2.1/verify', async (request, reply) => {
   const accessToken = (request.query as VerifyAccessTokenRequestQuery)
     .access_token
@@ -83,7 +83,7 @@ fastify.get('/oauth2/v2.1/verify', async (request, reply) => {
     return {
       error: 'invalid_request',
       error_description: 'access token expired',
-    } as VerifyAccessTokenErrorResponseBody
+    } as ErrorResponseBody
   }
 
   reply.type('application/json').code(200)
@@ -115,11 +115,6 @@ interface VerifyIdTokenResponseBody {
   email: string // 'taro.line@example.com'
 }
 
-interface VerifyIdTokenErrorResponseBody {
-  error: string // 'invalid_request'
-  error_description: string // 'Invalid IdToken.'
-}
-
 fastify.post('/oauth2/v2.1/verify', async (request, reply) => {
   const idToken = (request.body as VerifyIdTokenRequestBody).id_token
 
@@ -133,7 +128,7 @@ fastify.post('/oauth2/v2.1/verify', async (request, reply) => {
     return {
       error: 'invalid_request',
       error_description: 'Invalid IdToken.',
-    } as VerifyIdTokenErrorResponseBody
+    } as ErrorResponseBody
   }
 
   reply.type('application/json').code(200)
@@ -161,11 +156,6 @@ interface GetUserProfileResponseBody {
   statusMessage: string // 'Hello, LINE!'
 }
 
-interface GetUserProfileErrorResponseBody {
-  error: string // 'invalid_request'
-  error_description: string // 'access token expired'
-}
-
 fastify.get('/v2/profile', async (request, reply) => {
   const [, accessToken] = request.headers.authorization!.split(' ')
 
@@ -179,7 +169,7 @@ fastify.get('/v2/profile', async (request, reply) => {
     return {
       error: 'invalid_request',
       error_description: 'access token expired',
-    } as GetUserProfileErrorResponseBody
+    } as ErrorResponseBody
   }
 
   reply.type('application/json').code(200)
@@ -189,6 +179,34 @@ fastify.get('/v2/profile', async (request, reply) => {
     pictureUrl: showUserResult.picture,
     statusMessage: 'Hello, Linely!',
   } as GetUserProfileResponseBody
+})
+
+/**
+ * https://developers.line.biz/ja/reference/line-login/#get-user-profile
+ */
+interface GetFriendshipStatus {
+  friendFlag: boolean
+}
+
+fastify.get('/friendship/v1/status', async (request, reply) => {
+  const [, accessToken] = request.headers.authorization!.split(' ')
+
+  const showUserUseCase = container.get<ShowUserUseCase>(
+    DI_TYPE.SHOW_USER_USE_CASE
+  )
+  const showUserResult = await showUserUseCase(accessToken)
+  if (showUserResult instanceof UserNotFoundError) {
+    reply.type('application/json').code(400)
+    return {
+      error: 'invalid_request',
+      error_description: 'access token expired',
+    } as ErrorResponseBody
+  }
+
+  reply.type('application/json').code(200)
+  return {
+    friendFlag: true,
+  } as GetFriendshipStatus
 })
 
 const db = container.get<Db>(DI_TYPE.DB)

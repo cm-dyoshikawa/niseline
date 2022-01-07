@@ -55,7 +55,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [ ] [Revoke access token](https://developers.line.biz/ja/reference/line-login/#revoke-access-token)
 - [x] [Verify ID token](https://developers.line.biz/ja/reference/line-login/#verify-id-token)
 - [x] [Get user profile](https://developers.line.biz/ja/reference/line-login/#get-user-profile)
-- [ ] [Get friendship status](https://developers.line.biz/ja/reference/line-login/#get-friendship-status)
+- [x] [Get friendship status](https://developers.line.biz/ja/reference/line-login/#get-friendship-status)
 
 ### Messaging API
 
