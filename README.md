@@ -17,10 +17,10 @@ curl http://localhost:3000/debug/ping
 ```yaml
 version: '3'
 services:
-    linely:
-        image: dyoshikawa/linely:latest
-        ports:
-            - 3000:3000
+  linely:
+    image: dyoshikawa/linely:latest
+    ports:
+      - 3000:3000
 ```
 
 ```bash
