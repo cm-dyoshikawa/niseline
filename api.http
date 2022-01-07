@@ -1,0 +1,13 @@
+GET http://localhost:3000/debug/ping
+
+###
+
+POST http://localhost:3000/debug/users
+Content-Type: application/json
+
+{
+    "id": "FOO_ID",
+    "name": "Foo",
+    "picture": "http://example.com/foo.jpg",
+    "email": "foo@example.com"
+}
