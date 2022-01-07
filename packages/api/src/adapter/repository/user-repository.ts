@@ -30,11 +30,12 @@ export class UserRepositoryImpl implements UserRepository {
     this.db = db
   }
 
-  async find(id: string): Promise<User | Error> {
+  async find(id: string): Promise<User | undefined> {
     const data = await this.db.read()
-    const userRecord = data.users[id]
-
-    // TODO Userがundefinedだった場合
+    const userRecord: UserRecord | undefined = data.users[id]
+    if (userRecord == null) {
+      return undefined
+    }
 
     return toUser(id, userRecord)
   }

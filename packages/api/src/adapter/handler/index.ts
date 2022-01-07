@@ -4,6 +4,10 @@ import { bootstrap } from '../../di/bootstrap'
 import { DI_TYPE } from '../../di/type'
 import { RegisterUserUseCase } from '../../core/user/use-case/register-user-use-case'
 import { Db } from '../db'
+import {
+  ShowUserUseCase,
+  UserNotFoundError,
+} from '../../core/user/use-case/show-user-use-case'
 
 const fastify = Fastify({
   logger: true,
@@ -60,28 +64,38 @@ interface VerifyIdTokenResponse {
   email: string // 'taro.line@example.com'
 }
 
-// interface VerifyIdTokenRequest {
-//   // eslint-disable-next-line camelcase
-//   id_token: string
-//   // eslint-disable-next-line camelcase
-//   client_id: string
-// }
+interface VerifyIdTokenRequest {
+  // eslint-disable-next-line camelcase
+  id_token: string
+  // eslint-disable-next-line camelcase
+  client_id: string
+}
 
 fastify.post('/oauth2/v2.1/verify', async (request, reply) => {
-  // const idToken = (request.body as VerifyIdTokenRequest).id_token
+  const idToken = (request.body as VerifyIdTokenRequest).id_token
+
+  const showUserUseCase = container.get<ShowUserUseCase>(
+    DI_TYPE.SHOW_USER_USE_CASE
+  )
+  const showUserResult = await showUserUseCase(idToken)
+
+  if (showUserResult instanceof UserNotFoundError) {
+    reply.type('application/json').code(400)
+    return {}
+  }
 
   reply.type('application/json').code(200)
   return {
-    iss: 'https://access.line.me',
-    sub: 'U1234567890abcdef1234567890abcdef',
+    iss: 'https://example.com',
+    sub: showUserResult.id,
     aud: '1234567890',
     exp: 1504169092,
     iat: 1504263657,
     nonce: '0987654asdf',
     amr: ['pwd'],
-    name: 'Taro Line',
-    picture: 'https://sample_line.me/aBcdefg123456',
-    email: 'taro.line@example.com',
+    name: showUserResult.name,
+    picture: showUserResult.picture,
+    email: showUserResult.email,
   } as VerifyIdTokenResponse
 })
 
