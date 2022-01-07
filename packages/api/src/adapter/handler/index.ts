@@ -178,7 +178,7 @@ fastify.get('/v2/profile', async (request, reply) => {
     reply.type('application/json').code(400)
     return {
       error: 'invalid_request',
-      error_description: 'Invalid IdToken.',
+      error_description: 'access token expired',
     } as GetUserProfileErrorResponseBody
   }
 
