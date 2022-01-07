@@ -15,6 +15,7 @@ curl http://localhost:3000/debug/ping
 ### Docker Compose
 
 ```yaml
+# docker-compose.yml
 version: '3'
 services:
   linely:
