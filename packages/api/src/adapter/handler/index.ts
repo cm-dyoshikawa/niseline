@@ -51,7 +51,14 @@ fastify.post('/debug/users', async (request, reply) => {
  * Login
  * https://developers.line.biz/ja/reference/line-login/#verify-id-token
  */
-interface VerifyIdTokenResponse {
+interface VerifyIdTokenRequestBody {
+  // eslint-disable-next-line camelcase
+  id_token: string
+  // eslint-disable-next-line camelcase
+  client_id: string
+}
+
+interface VerifyIdTokenResponseBody {
   iss: string // 'https://access.line.me'
   sub: string // 'U1234567890abcdef1234567890abcdef'
   aud: string // '1234567890'
@@ -64,15 +71,8 @@ interface VerifyIdTokenResponse {
   email: string // 'taro.line@example.com'
 }
 
-interface VerifyIdTokenRequest {
-  // eslint-disable-next-line camelcase
-  id_token: string
-  // eslint-disable-next-line camelcase
-  client_id: string
-}
-
 fastify.post('/oauth2/v2.1/verify', async (request, reply) => {
-  const idToken = (request.body as VerifyIdTokenRequest).id_token
+  const idToken = (request.body as VerifyIdTokenRequestBody).id_token
 
   const showUserUseCase = container.get<ShowUserUseCase>(
     DI_TYPE.SHOW_USER_USE_CASE
@@ -96,7 +96,42 @@ fastify.post('/oauth2/v2.1/verify', async (request, reply) => {
     name: showUserResult.name,
     picture: showUserResult.picture,
     email: showUserResult.email,
-  } as VerifyIdTokenResponse
+  } as VerifyIdTokenResponseBody
+})
+
+interface VerifyAccessTokenRequestQuery {
+  // eslint-disable-next-line camelcase
+  access_token: string
+}
+
+interface VerifyAccessTokenResponseBody {
+  scope: string // 'profile'
+  // eslint-disable-next-line camelcase
+  client_id: string // '1440057261'
+  // eslint-disable-next-line camelcase
+  expires_in: number // 2591659
+}
+
+fastify.get('/oauth2/v2.1/verify', async (request, reply) => {
+  const accessToken = (request.query as VerifyAccessTokenRequestQuery)
+    .access_token
+
+  const showUserUseCase = container.get<ShowUserUseCase>(
+    DI_TYPE.SHOW_USER_USE_CASE
+  )
+  const showUserResult = await showUserUseCase(accessToken)
+
+  if (showUserResult instanceof UserNotFoundError) {
+    reply.type('application/json').code(400)
+    return {}
+  }
+
+  reply.type('application/json').code(200)
+  return {
+    scope: 'profile',
+    client_id: '1440057261',
+    expires_in: 2591659,
+  } as VerifyAccessTokenResponseBody
 })
 
 const db = container.get<Db>(DI_TYPE.DB)

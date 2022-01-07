@@ -22,3 +22,7 @@ POST {{ BASE_URL }}/oauth2/v2.1/verify
 Content-Type: application/x-www-form-urlencoded
 
 id_token=FOO_ID&client_id=1234567890
+
+###
+
+GET {{ BASE_URL }}/access_token=FOO_ID
