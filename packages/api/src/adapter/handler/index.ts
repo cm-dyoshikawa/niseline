@@ -50,6 +50,8 @@ fastify.post('/debug/users', async (request, reply) => {
 
 /**
  * Login
+ */
+/**
  * https://developers.line.biz/ja/reference/line-login/#verify-access-token
  */
 interface VerifyAccessTokenRequestQuery {
@@ -147,6 +149,46 @@ fastify.post('/oauth2/v2.1/verify', async (request, reply) => {
     picture: showUserResult.picture,
     email: showUserResult.email,
   } as VerifyIdTokenResponseBody
+})
+
+/**
+ * https://developers.line.biz/ja/reference/line-login/#get-user-profile
+ */
+interface GetUserProfileResponseBody {
+  userId: string // 'U4af4980629...'
+  displayName: string // 'Brown'
+  pictureUrl: string // 'https://profile.line-scdn.net/abcdefghijklmn'
+  statusMessage: string // 'Hello, LINE!'
+}
+
+interface GetUserProfileErrorResponseBody {
+  error: string // 'invalid_request'
+  error_description: string // 'access token expired'
+}
+
+fastify.get('/v2/profile', async (request, reply) => {
+  const [, accessToken] = request.headers.authorization!.split(' ')
+
+  const showUserUseCase = container.get<ShowUserUseCase>(
+    DI_TYPE.SHOW_USER_USE_CASE
+  )
+  const showUserResult = await showUserUseCase(accessToken)
+
+  if (showUserResult instanceof UserNotFoundError) {
+    reply.type('application/json').code(400)
+    return {
+      error: 'invalid_request',
+      error_description: 'access token expired',
+    } as GetUserProfileErrorResponseBody
+  }
+
+  reply.type('application/json').code(200)
+  return {
+    userId: showUserResult.id,
+    displayName: 'Brown',
+    pictureUrl: showUserResult.picture,
+    statusMessage: 'Hello, Linely!',
+  } as GetUserProfileResponseBody
 })
 
 const db = container.get<Db>(DI_TYPE.DB)
