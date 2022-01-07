@@ -4,11 +4,11 @@ import fastifyFormBody from 'fastify-formbody'
 import { bootstrap } from '../../di/bootstrap'
 import { DI_TYPE } from '../../di/type'
 import { RegisterUserUseCase } from '../../core/user/use-case/register-user-use-case'
-import { Db } from '../db'
 import {
   ShowUserUseCase,
   UserNotFoundError,
 } from '../../core/user/use-case/show-user-use-case'
+import { initLowDb } from '../db/lowdb'
 
 const fastify = Fastify({
   logger: true,
@@ -209,10 +209,8 @@ fastify.get('/friendship/v1/status', async (request, reply) => {
   } as GetFriendshipStatus
 })
 
-const db = container.get<Db>(DI_TYPE.DB)
+initLowDb()
 
-db.init().then(() => {
-  fastify.listen(3000, '0.0.0.0', (err) => {
-    if (err) throw err
-  })
+fastify.listen(3000, '0.0.0.0', (err) => {
+  if (err) throw err
 })
