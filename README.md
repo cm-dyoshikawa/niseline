@@ -1,5 +1,7 @@
 # Linely
 
+Linely is inspired by [LocalStack](https://github.com/localstack/localstack). Goal of this tool is to create a mock service for [LINE](https://line.me/ja/).
+
 ## Setup
 
 ### Docker
