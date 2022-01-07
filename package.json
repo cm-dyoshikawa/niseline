@@ -10,7 +10,8 @@
     "build": "docker build -t dyoshikawa/linely:latest .",
     "publish": "docker push dyoshikawa/linely:latest",
     "lint:secret": "secretlint '**/*'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "npm run prepare"
   },
   "devDependencies": {
     "@secretlint/secretlint-rule-preset-recommend": "^4.1.3",
