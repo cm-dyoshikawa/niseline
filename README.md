@@ -34,11 +34,13 @@ curl --request POST \
   --url http://localhost:3000/debug/users \
   --header 'content-type: application/json' \
   --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
+# => null
 
 curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   --data-urlencode 'id_token=FOO_ID' \
   --data-urlencode 'client_id=1234567890'
+# => {"iss":"https://example.com","sub":"FOO_ID","aud":"1234567890","exp":1504169092,"iat":1504263657,"nonce":"0987654asdf","amr":["pwd"],"name":"Foo","picture":"http://example.com/foo.jpg","email":"foo@example.com"}
 ```
 ## Features
 
