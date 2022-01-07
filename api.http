@@ -1,8 +1,12 @@
-GET http://localhost:3000/debug/ping
+@BASE_URL=http://localhost:3000
 
 ###
 
-POST http://localhost:3000/debug/users
+GET {{ BASE_URL }}/debug/ping
+
+###
+
+POST {{ BASE_URL }}/debug/users
 Content-Type: application/json
 
 {
@@ -11,3 +15,10 @@ Content-Type: application/json
     "picture": "http://example.com/foo.jpg",
     "email": "foo@example.com"
 }
+
+###
+
+POST {{ BASE_URL }}/oauth2/v2.1/verify
+Content-Type: application/x-www-form-urlencoded
+
+id_token=FOO_ID&client_id=1234567890

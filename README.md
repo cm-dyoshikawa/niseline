@@ -48,7 +48,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [ ] [Verify access token](https://developers.line.biz/ja/reference/line-login/#verify-access-token)
 - [ ] [Refresh access token](https://developers.line.biz/ja/reference/line-login/#refresh-access-token)
 - [ ] [Revoke access token](https://developers.line.biz/ja/reference/line-login/#revoke-access-token)
-- [ ] [Verify ID token](https://developers.line.biz/ja/reference/line-login/#verify-id-token)
+- [x] [Verify ID token](https://developers.line.biz/ja/reference/line-login/#verify-id-token)
 
 ### Messaging API
 
