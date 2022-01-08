@@ -6,6 +6,7 @@ export interface UserRecord {
   name: string
   picture: string
   email: string
+  channelId: string
 }
 
 const toUserRecord = (user: User): UserRecord => {
@@ -13,6 +14,7 @@ const toUserRecord = (user: User): UserRecord => {
     name: user.name,
     picture: user.picture,
     email: user.email,
+    channelId: user.channelId,
   }
 }
 
@@ -23,7 +25,7 @@ const toUser = (id: string, userRecord: UserRecord): User => {
   }
 }
 
-type UserJson = Record<string, UserRecord>
+export type UserJson = Record<string, UserRecord>
 
 export class UserLowRepository implements UserRepository {
   private readonly low: Low<UserJson>
