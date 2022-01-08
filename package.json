@@ -9,10 +9,10 @@
   "scripts": {
     "build": "docker build -t dyoshikawa/linely:latest .",
     "publish": "docker push dyoshikawa/linely:latest",
-    "format": "prettier --write '**/*.{ts,json,yml}'",
-    "format:check": "prettier -c '**/*.{ts,json,yml}'",
+    "format": "prettier --write .",
+    "format:check": "prettier -c .",
     "lint:secret": "secretlint '**/*'",
-    "lint:js": "eslint --fix '**/*.ts'",
+    "lint:js": "eslint --fix '**/*.{js,ts}'",
     "prepare": "husky install",
     "postinstall": "npm run prepare",
     "typec": "tsc --noEmit",
@@ -30,6 +30,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "husky": "^7.0.4",
+    "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
     "secretlint": "^4.1.3",
     "typescript": "^4.5.4"
@@ -40,5 +41,10 @@
   "volta": {
     "node": "16.13.1",
     "npm": "8.3.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "npm run check"
+    ]
   }
 }
