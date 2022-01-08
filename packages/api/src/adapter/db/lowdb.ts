@@ -10,7 +10,7 @@ export const initLowDb = () => {
       channelAccessToken: 'DEFAULT_CHANNEL_ACCESS_TOKEN',
     },
   }
-  fs.writeFileSync('./tmp/users.json', JSON.stringify(channelJson))
+  fs.writeFileSync('./tmp/channels.json', JSON.stringify(channelJson, null, 2))
 
   const userJson: UserJson = {
     DEFAULT_USER: {
@@ -20,5 +20,5 @@ export const initLowDb = () => {
       channelId: 'DEFAULT_CHANNEL',
     },
   }
-  fs.writeFileSync('./tmp/users.json', JSON.stringify(userJson))
+  fs.writeFileSync('./tmp/users.json', JSON.stringify(userJson, null, 2))
 }
