@@ -60,5 +60,17 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 
 ### Messaging API
 
-- TODO
-  - https://developers.line.biz/ja/reference/messaging-api/
+- [ ] [Send reply message](https://developers.line.biz/ja/reference/messaging-api/#send-reply-message)
+- [ ] [Send push message](https://developers.line.biz/ja/reference/messaging-api/#send-push-message)
+- [ ] [Send multicast message](https://developers.line.biz/ja/reference/messaging-api/#send-multicast-message)
+- [ ] [Send narrowcast message](https://developers.line.biz/ja/reference/messaging-api/#send-narrowcast-message)
+- [ ] [Get narrowcast progress status](https://developers.line.biz/ja/reference/messaging-api/#get-narrowcast-progress-status)
+- [ ] [Send broadcast message](https://developers.line.biz/ja/reference/messaging-api/#send-broadcast-message)
+- [ ] [Get content](https://developers.line.biz/ja/reference/messaging-api/#get-content)
+- [ ] [Get quota](https://developers.line.biz/ja/reference/messaging-api/#get-quota)
+- [ ] [Get consumption](https://developers.line.biz/ja/reference/messaging-api/#get-consumption)
+- [ ] [Get number of reply messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-reply-messages)
+- [ ] [Get number of push messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-push-messages)
+- [ ] [Get number of multicast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-multicast-messages)
+- [ ] [Get number of broadcast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-broadcast-messages)
+- [ ] [Retry api request](https://developers.line.biz/ja/reference/messaging-api/#retry-api-request)
