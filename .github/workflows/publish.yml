@@ -18,6 +18,8 @@ jobs:
 
       - run: npm ci
 
+      - run: npm run check
+
       - run: npm run build -w api
 
       - uses: docker/setup-buildx-action@v1
