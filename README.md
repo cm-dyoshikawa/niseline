@@ -45,6 +45,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
   --data-urlencode 'client_id=1234567890'
 # => {"iss":"https://example.com","sub":"FOO_ID","aud":"1234567890","exp":1504169092,"iat":1504263657,"nonce":"0987654asdf","amr":["pwd"],"name":"Foo","picture":"http://example.com/foo.jpg","email":"foo@example.com"}
 ```
+
 ## Features
 
 ### Login API
