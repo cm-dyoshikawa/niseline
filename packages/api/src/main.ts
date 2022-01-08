@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
 import Fastify, { RouteHandlerMethod } from 'fastify'
 import fastifyFormBody from 'fastify-formbody'
-import { bootstrap } from './di/bootstrap'
-import { DI_TYPE } from './di/type'
 import {
   ShowUserUseCase,
   UserNotFoundError,
 } from './component/user/use-case/show-user-use-case'
+import { bootstrap } from './di/bootstrap'
+import { DI_TYPE } from './di/type'
 import { initLowDb } from './util/db/lowdb'
 
 const fastify = Fastify({

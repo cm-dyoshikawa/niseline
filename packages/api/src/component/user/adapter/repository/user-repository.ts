@@ -1,6 +1,6 @@
+import { JSONFile, Low } from 'lowdb'
 import { User } from '../../domain/entity'
 import { UserRepository } from '../../domain/repository'
-import { JSONFile, Low } from 'lowdb'
 
 export interface UserRecord {
   name: string
