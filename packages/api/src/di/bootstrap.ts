@@ -1,7 +1,11 @@
 import { Container } from 'inversify'
-import { UserLowRepository } from '../adapter/repository/user-repository'
-import { buildRegisterUserUseCase } from '../core/user/use-case/register-user-use-case'
-import { buildShowUserUseCase } from '../core/user/use-case/show-user-use-case'
+import {
+  buildDebugPingHandler,
+  buildDebugRegisterUserHandler,
+} from '../component/user/adapter/handler/debug'
+import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
+import { buildRegisterUserUseCase } from '../component/user/use-case/register-user-use-case'
+import { buildShowUserUseCase } from '../component/user/use-case/show-user-use-case'
 import { DI_TYPE } from './type'
 
 export const bootstrap = (): Container => {
@@ -23,6 +27,17 @@ export const bootstrap = (): Container => {
       userRepository: container.get(DI_TYPE.USER_REPOSITORY),
     })
   )
+
+  container
+    .bind(DI_TYPE.DEBUG_PING_HANDLER)
+    .toDynamicValue(() => buildDebugPingHandler())
+  container
+    .bind(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
+    .toDynamicValue(() =>
+      buildDebugRegisterUserHandler(
+        container.get(DI_TYPE.REGISTER_USER_USE_CASE)
+      )
+    )
 
   return container
 }

@@ -1,14 +1,13 @@
 /* eslint-disable camelcase */
-import Fastify from 'fastify'
+import Fastify, { RouteHandlerMethod } from 'fastify'
 import fastifyFormBody from 'fastify-formbody'
-import { bootstrap } from '../../di/bootstrap'
-import { DI_TYPE } from '../../di/type'
-import { RegisterUserUseCase } from '../../core/user/use-case/register-user-use-case'
+import { bootstrap } from './di/bootstrap'
+import { DI_TYPE } from './di/type'
 import {
   ShowUserUseCase,
   UserNotFoundError,
-} from '../../core/user/use-case/show-user-use-case'
-import { initLowDb } from '../db/lowdb'
+} from './component/user/use-case/show-user-use-case'
+import { initLowDb } from './util/db/lowdb'
 
 const fastify = Fastify({
   logger: true,
@@ -25,35 +24,15 @@ interface ErrorResponseBody {
 /**
  * Debug
  */
-fastify.get('/debug/ping', async (_, reply) => {
-  reply.type('application/json').code(200)
-  return { ping: 'pong' }
-})
+fastify.get(
+  '/debug/ping',
+  container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_PING_HANDLER)
+)
 
-fastify.post('/debug/users', async (request, reply) => {
-  const registerUserUseCase = container.get<RegisterUserUseCase>(
-    DI_TYPE.REGISTER_USER_USE_CASE
-  )
-
-  const body = request.body as {
-    id: string
-    name: string
-    picture: string
-    email: string
-    channelId: string
-  }
-
-  await registerUserUseCase({
-    id: body.id,
-    name: body.name,
-    picture: body.picture,
-    email: body.email,
-    channelId: body.channelId,
-  })
-
-  reply.type('application/json').code(200)
-  return null
-})
+fastify.post(
+  '/debug/users',
+  container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
+)
 
 /**
  * Login
