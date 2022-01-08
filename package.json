@@ -9,9 +9,14 @@
   "scripts": {
     "build": "docker build -t dyoshikawa/linely:latest .",
     "publish": "docker push dyoshikawa/linely:latest",
+    "format": "prettier --write '**/*.{ts,json,yml}'",
+    "format:check": "prettier -c '**/*.{ts,json,yml}'",
     "lint:secret": "secretlint '**/*'",
+    "lint:js": "eslint --fix '**/*.ts'",
     "prepare": "husky install",
-    "postinstall": "npm run prepare"
+    "postinstall": "npm run prepare",
+    "typec": "tsc --noEmit",
+    "check": "npm run lint:secret && npm run format:check && npm run lint:js && npm run typec"
   },
   "devDependencies": {
     "@secretlint/secretlint-rule-preset-recommend": "^4.1.3",
