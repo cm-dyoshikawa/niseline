@@ -1,13 +1,13 @@
 import { RouteHandlerMethod } from 'fastify'
 import { RegisterUserUseCase } from '../../use-case/register-user-use-case'
 
-export const buildDebugPingHandler =
+export const buildDebugPingFastifyHandler =
   (): RouteHandlerMethod => async (_, reply) => {
     reply.type('application/json').code(200)
     return { ping: 'pong' }
   }
 
-export const buildDebugRegisterUserHandler =
+export const buildDebugRegisterUserFastifyHandler =
   (registerUserUseCase: RegisterUserUseCase): RouteHandlerMethod =>
   async (request, reply) => {
     const body = request.body as {

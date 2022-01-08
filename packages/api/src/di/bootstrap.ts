@@ -1,8 +1,8 @@
 import { Container } from 'inversify'
 import {
-  buildDebugPingHandler,
-  buildDebugRegisterUserHandler,
-} from '../component/user/adapter/handler/debug'
+  buildDebugPingFastifyHandler,
+  buildDebugRegisterUserFastifyHandler,
+} from '../component/user/adapter/handler/debug-fastify-handler'
 import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
 import { buildRegisterUserUseCase } from '../component/user/use-case/register-user-use-case'
 import { buildShowUserUseCase } from '../component/user/use-case/show-user-use-case'
@@ -30,11 +30,11 @@ export const bootstrap = (): Container => {
 
   container
     .bind(DI_TYPE.DEBUG_PING_HANDLER)
-    .toDynamicValue(() => buildDebugPingHandler())
+    .toDynamicValue(() => buildDebugPingFastifyHandler())
   container
     .bind(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
     .toDynamicValue(() =>
-      buildDebugRegisterUserHandler(
+      buildDebugRegisterUserFastifyHandler(
         container.get(DI_TYPE.REGISTER_USER_USE_CASE)
       )
     )
