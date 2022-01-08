@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier -c .",
     "lint:secret": "secretlint '**/*'",
-    "lint:js": "eslint --fix '**/*.{js,ts}'",
+    "lint:js": "eslint '**/*.{js,ts}'",
+    "lint:js:fix": "eslint --fix '**/*.{js,ts}'",
     "prepare": "husky install",
     "postinstall": "npm run prepare",
     "typec": "tsc --noEmit",
@@ -44,7 +45,10 @@
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
-      "npm run check"
+      "bash -c 'npm run lint:secret'",
+      "bash -c 'npm run format'",
+      "bash -c 'npm run lint:js:fix'",
+      "bash -c 'npm run typec'"
     ]
   }
 }

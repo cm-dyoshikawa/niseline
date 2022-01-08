@@ -40,6 +40,7 @@ fastify.post('/debug/users', async (request, reply) => {
     name: string
     picture: string
     email: string
+    channelId: string
   }
 
   await registerUserUseCase({
@@ -47,6 +48,7 @@ fastify.post('/debug/users', async (request, reply) => {
     name: body.name,
     picture: body.picture,
     email: body.email,
+    channelId: body.channelId,
   })
 
   reply.type('application/json').code(200)
