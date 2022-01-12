@@ -1,7 +1,13 @@
 import { Container } from 'inversify'
-import { UserLowRepository } from '../adapter/repository/user-repository'
-import { buildRegisterUserUseCase } from '../core/user/use-case/register-user-use-case'
-import { buildShowUserUseCase } from '../core/user/use-case/show-user-use-case'
+import { buildDebugPingFastifyHandler } from '../component/user/adapter/handler/debug-ping-fastify-handler'
+import { buildDebugRegisterUserFastifyHandler } from '../component/user/adapter/handler/debug-register-user-fastify-handler'
+import { buildFriendshipStatusFastifyHandler } from '../component/user/adapter/handler/get-friendship-status-fastify-handler'
+import { buildGetUserProfileFastifyHandler } from '../component/user/adapter/handler/get-user-profile-fastify-handler'
+import { buildVerifyAccessTokenFastifyHandler } from '../component/user/adapter/handler/verify-access-token-fastify-handler'
+import { buildVerifyIdTokenFastifyHandler } from '../component/user/adapter/handler/verify-id-token-fastify-handler'
+import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
+import { buildRegisterUserUseCase } from '../component/user/use-case/register-user-use-case'
+import { buildShowUserUseCase } from '../component/user/use-case/show-user-use-case'
 import { DI_TYPE } from './type'
 
 export const bootstrap = (): Container => {
@@ -23,6 +29,46 @@ export const bootstrap = (): Container => {
       userRepository: container.get(DI_TYPE.USER_REPOSITORY),
     })
   )
+
+  container
+    .bind(DI_TYPE.DEBUG_PING_HANDLER)
+    .toDynamicValue(() => buildDebugPingFastifyHandler())
+  container
+    .bind(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
+    .toDynamicValue(() =>
+      buildDebugRegisterUserFastifyHandler(
+        container.get(DI_TYPE.REGISTER_USER_USE_CASE)
+      )
+    )
+
+  container
+    .bind(DI_TYPE.VERIFY_ACCESS_TOKEN_FASTIFY_HANDLER)
+    .toDynamicValue(({ container }) =>
+      buildVerifyAccessTokenFastifyHandler(
+        container.get(DI_TYPE.SHOW_USER_USE_CASE)
+      )
+    )
+  container
+    .bind(DI_TYPE.VERIFY_ID_TOKEN_FASTIFY_HANDLER)
+    .toDynamicValue(({ container }) =>
+      buildVerifyIdTokenFastifyHandler(
+        container.get(DI_TYPE.SHOW_USER_USE_CASE)
+      )
+    )
+  container
+    .bind(DI_TYPE.GET_USER_PROFILE_FASTIFY_HANDLER)
+    .toDynamicValue(({ container }) =>
+      buildGetUserProfileFastifyHandler(
+        container.get(DI_TYPE.SHOW_USER_USE_CASE)
+      )
+    )
+  container
+    .bind(DI_TYPE.GET_FRIENDSHIP_STATUS_FASTIFY_HANDLER)
+    .toDynamicValue(({ container }) =>
+      buildFriendshipStatusFastifyHandler(
+        container.get(DI_TYPE.SHOW_USER_USE_CASE)
+      )
+    )
 
   return container
 }
