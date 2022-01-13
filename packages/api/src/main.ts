@@ -17,11 +17,13 @@ const container = bootstrap()
  */
 fastify.get(
   '/debug/ping',
-  container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_PING_HANDLER)
+  container.get<RouteHandlerMethod>(DI_TYPE.USER_COMPONENT.DEBUG_PING_HANDLER)
 )
 fastify.post(
   '/debug/users',
-  container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
+  container.get<RouteHandlerMethod>(
+    DI_TYPE.USER_COMPONENT.DEBUG_REGISTER_USER_HANDLER
+  )
 )
 
 /**
@@ -29,20 +31,26 @@ fastify.post(
  */
 fastify.get(
   '/oauth2/v2.1/verify',
-  container.get<RouteHandlerMethod>(DI_TYPE.VERIFY_ACCESS_TOKEN_FASTIFY_HANDLER)
+  container.get<RouteHandlerMethod>(
+    DI_TYPE.USER_COMPONENT.VERIFY_ACCESS_TOKEN_FASTIFY_HANDLER
+  )
 )
 fastify.post(
   '/oauth2/v2.1/verify',
-  container.get<RouteHandlerMethod>(DI_TYPE.VERIFY_ID_TOKEN_FASTIFY_HANDLER)
+  container.get<RouteHandlerMethod>(
+    DI_TYPE.USER_COMPONENT.VERIFY_ID_TOKEN_FASTIFY_HANDLER
+  )
 )
 fastify.get(
   '/v2/profile',
-  container.get<RouteHandlerMethod>(DI_TYPE.GET_USER_PROFILE_FASTIFY_HANDLER)
+  container.get<RouteHandlerMethod>(
+    DI_TYPE.USER_COMPONENT.GET_USER_PROFILE_FASTIFY_HANDLER
+  )
 )
 fastify.get(
   '/friendship/v1/status',
   container.get<RouteHandlerMethod>(
-    DI_TYPE.GET_FRIENDSHIP_STATUS_FASTIFY_HANDLER
+    DI_TYPE.USER_COMPONENT.GET_FRIENDSHIP_STATUS_FASTIFY_HANDLER
   )
 )
 
@@ -51,7 +59,9 @@ fastify.get(
  */
 fastify.post(
   '/v2/bot/message/reply',
-  container.get<RouteHandlerMethod>(DI_TYPE.SEND_REPLY_MESSAGE_FASTIFY_HANDLER)
+  container.get<RouteHandlerMethod>(
+    DI_TYPE.USER_COMPONENT.SEND_REPLY_MESSAGE_FASTIFY_HANDLER
+  )
 )
 
 initLowDb()
