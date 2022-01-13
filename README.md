@@ -60,7 +60,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 
 ### Messaging API
 
-- [ ] [Send reply message](https://developers.line.biz/ja/reference/messaging-api/#send-reply-message)
+- [x] [Send reply message](https://developers.line.biz/ja/reference/messaging-api/#send-reply-message)
 - [ ] [Send push message](https://developers.line.biz/ja/reference/messaging-api/#send-push-message)
 - [ ] [Send multicast message](https://developers.line.biz/ja/reference/messaging-api/#send-multicast-message)
 - [ ] [Send narrowcast message](https://developers.line.biz/ja/reference/messaging-api/#send-narrowcast-message)
