@@ -25,7 +25,7 @@ fastify.post(
 )
 
 /**
- * Login
+ * Login API
  */
 fastify.get(
   '/oauth2/v2.1/verify',
@@ -44,6 +44,14 @@ fastify.get(
   container.get<RouteHandlerMethod>(
     DI_TYPE.GET_FRIENDSHIP_STATUS_FASTIFY_HANDLER
   )
+)
+
+/**
+ * Messaging API
+ */
+fastify.post(
+  '/v2/bot/message/reply',
+  container.get<RouteHandlerMethod>(DI_TYPE.SEND_REPLY_MESSAGE_FASTIFY_HANDLER)
 )
 
 initLowDb()

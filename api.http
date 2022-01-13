@@ -36,3 +36,16 @@ Authorization: Bearer DEFAULT_USER
 
 GET {{ BASE_URL }}/friendship/v1/status
 Authorization: Bearer DEFAULT_USER
+
+###
+
+POST {{ BASE_URL }}/v2/bot/message/reply
+Content-Type: application/json
+
+{
+    "replyToken": "DEFAULT_USER",
+    "messages": [{
+        "type": "text",
+        "text": "Hello Linely!"
+    }]
+}
