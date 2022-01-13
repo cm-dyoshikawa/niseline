@@ -5,7 +5,10 @@
   "private": true,
   "scripts": {
     "start": "node -r esbuild-register src/main.ts",
-    "build": "esbuild src/main.ts --bundle --platform=node --target=node16 --outfile=dist/index.js"
+    "build": "esbuild src/main.ts --bundle --platform=node --target=node16 --outfile=dist/index.js",
+    "lint:js": "eslint '**/*.{js,ts}'",
+    "lint:js:fix": "eslint --fix '**/*.{js,ts}'",
+    "typec": "tsc --noEmit"
   },
   "author": "dyoshikawa",
   "license": "MIT",
@@ -21,6 +24,9 @@
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^17.0.8",
     "esbuild": "^0.14.10",
-    "esbuild-register": "^3.3.1"
+    "esbuild-register": "^3.3.1",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0"
   }
 }

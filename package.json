@@ -12,24 +12,15 @@
     "format": "prettier --write .",
     "format:check": "prettier -c .",
     "lint:secret": "secretlint '**/*'",
-    "lint:js": "eslint '**/*.{js,ts}'",
-    "lint:js:fix": "eslint --fix '**/*.{js,ts}'",
     "prepare": "husky install",
     "postinstall": "npm run prepare",
-    "typec": "tsc --noEmit",
-    "check": "npm run lint:secret && npm run format:check && npm run lint:js && npm run typec"
+    "check": "npm run lint:secret && npm run format:check && npm run lint:js --workspaces && npm run typec --workspaces"
   },
   "devDependencies": {
     "@secretlint/secretlint-rule-preset-recommend": "^4.1.3",
     "@tsconfig/recommended": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
@@ -47,8 +38,8 @@
     "*.{js,ts,jsx,tsx}": [
       "bash -c 'npm run lint:secret'",
       "bash -c 'npm run format'",
-      "bash -c 'npm run lint:js:fix'",
-      "bash -c 'npm run typec'"
+      "bash -c 'npm run lint:js:fix --workspaces'",
+      "bash -c 'npm run typec --workspaces'"
     ]
   }
 }
