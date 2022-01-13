@@ -9,21 +9,17 @@ export interface UserRecord {
   channelId: string
 }
 
-const toUserRecord = (user: User): UserRecord => {
-  return {
-    name: user.name,
-    picture: user.picture,
-    email: user.email,
-    channelId: user.channelId,
-  }
-}
+const toUserRecord = (user: User): UserRecord => ({
+  name: user.name,
+  picture: user.picture,
+  email: user.email,
+  channelId: user.channelId,
+})
 
-const toUser = (id: string, userRecord: UserRecord): User => {
-  return {
-    ...userRecord,
-    id: id,
-  }
-}
+const toUser = (id: string, userRecord: UserRecord): User => ({
+  ...userRecord,
+  id,
+})
 
 export type UserJson = Record<string, UserRecord>
 
