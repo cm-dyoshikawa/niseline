@@ -6,7 +6,7 @@ export class UserIdInvalidError extends Error {}
 export type SendPushMessageUseCase = (params: {
   userId: string
   channelAccessToken: string
-}) => Promise<undefined | UserIdInvalidError>
+}) => Promise<undefined | ChannelAccessTokenInvalidError | UserIdInvalidError>
 
 export const buildSendPushMessageUseCase =
   ({

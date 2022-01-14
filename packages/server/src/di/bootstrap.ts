@@ -147,6 +147,7 @@ export const bootstrap = (): Container => {
     .toDynamicValue(({ container: c }) =>
       buildSendReplyMessageUseCase({
         userRepository: c.get(DI_TYPE.MESSAGE_COMPONENT_USER_REPOSITORY),
+        channelRepository: c.get(DI_TYPE.MESSAGE_COMPONENT_CHANNEL_REPOSITORY),
       })
     )
   container
