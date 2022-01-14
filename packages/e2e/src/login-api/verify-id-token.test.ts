@@ -1,8 +1,7 @@
-import 'regenerator-runtime/runtime'
 import fetch from 'node-fetch'
 import { CONFIG } from '../config'
 
-test('verify-id-token', async () => {
+test('Verify ID token', async () => {
   const result = await fetch(
     new URL('/oauth2/v2.1/verify', CONFIG.BASE_URL).toString(),
     {
