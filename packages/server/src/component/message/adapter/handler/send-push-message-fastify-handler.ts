@@ -2,6 +2,7 @@ import { RouteHandlerMethod } from 'fastify'
 import {
   UserIdInvalidError,
   SendPushMessageUseCase,
+  ChannelAccessTokenInvalidError,
 } from '../../use-case/send-push-message-use-case'
 
 interface SendPushMessageRequestBody {
@@ -28,6 +29,15 @@ export const buildSendPushMessageFastifyHandler =
       channelAccessToken,
       userId: requestBody.to,
     })
+
+    if (
+      sendPushMessageUseCaseResult instanceof ChannelAccessTokenInvalidError
+    ) {
+      reply.type('application/json').code(400)
+      return {
+        message: 'Invalid channel access token',
+      }
+    }
 
     if (sendPushMessageUseCaseResult instanceof UserIdInvalidError) {
       reply.type('application/json').code(400)
