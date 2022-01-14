@@ -32,3 +32,7 @@ jobs:
           tags: dyoshikawa/linely:latest,dyoshikawa/linely:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - run: docker compose up -d
+
+      - run: npm run test -w e2e
