@@ -29,10 +29,10 @@ jobs:
         with:
           context: .
           push: false
-          tags: dyoshikawa/linely:latest,dyoshikawa/linely:${{ github.sha }}
+          tags: dyoshikawa/linely:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - run: docker compose up -d
+      - run: docker run -p 3000:3000 -d dyoshikawa/linely:${{ github.sha }}
 
       - run: npm run test -w e2e
