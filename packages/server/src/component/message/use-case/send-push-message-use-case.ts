@@ -1,23 +1,21 @@
 import { ChannelRepository, UserRepository } from '../domain/repository'
 
 export class ChannelAccessTokenInvalidError extends Error {}
-export class ReplyTokenInvalidError extends Error {}
+export class UserIdInvalidError extends Error {}
 
-export type SendReplyMessageUseCase = (params: {
+export type SendPushMessageUseCase = (params: {
   userId: string
   channelAccessToken: string
-}) => Promise<
-  undefined | ChannelAccessTokenInvalidError | ReplyTokenInvalidError
->
+}) => Promise<undefined | ChannelAccessTokenInvalidError | UserIdInvalidError>
 
-export const buildSendReplyMessageUseCase =
+export const buildSendPushMessageUseCase =
   ({
     userRepository,
     channelRepository,
   }: {
     userRepository: UserRepository
     channelRepository: ChannelRepository
-  }): SendReplyMessageUseCase =>
+  }): SendPushMessageUseCase =>
   async ({
     userId,
     channelAccessToken,
@@ -34,7 +32,7 @@ export const buildSendReplyMessageUseCase =
 
     const findUserResult = await userRepository.findUser(userId)
     if (findUserResult == null) {
-      return new ReplyTokenInvalidError()
+      return new UserIdInvalidError()
     }
 
     return undefined

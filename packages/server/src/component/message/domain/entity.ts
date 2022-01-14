@@ -5,3 +5,7 @@ export interface User {
   email: string
   channelId: string
 }
+
+export interface Channel {
+  id: string
+}

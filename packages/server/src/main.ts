@@ -53,6 +53,10 @@ fastify.post(
   '/v2/bot/message/reply',
   container.get<RouteHandlerMethod>(DI_TYPE.SEND_REPLY_MESSAGE_FASTIFY_HANDLER)
 )
+fastify.post(
+  '/v2/bot/message/push',
+  container.get<RouteHandlerMethod>(DI_TYPE.SEND_PUSH_MESSAGE_FASTIFY_HANDLER)
+)
 
 initLowDb()
 
