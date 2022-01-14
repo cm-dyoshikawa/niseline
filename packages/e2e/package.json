@@ -1,0 +1,18 @@
+{
+  "name": "e2e",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@swc/core": "1.2.129",
+    "@swc/jest": "0.2.17",
+    "@types/node": "17.0.8",
+    "@types/node-fetch": "3.0.3",
+    "jest": "27.4.7",
+    "node-fetch": "3.1.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "dyoshikawa",
+  "license": "MIT"
+}
