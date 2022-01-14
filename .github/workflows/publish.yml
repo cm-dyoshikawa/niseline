@@ -20,7 +20,7 @@ jobs:
 
       - run: npm run check
 
-      - run: npm run build -w api
+      - run: npm run build -w server
 
       - uses: docker/setup-buildx-action@v1
 
