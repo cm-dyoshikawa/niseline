@@ -21,7 +21,7 @@ jobs:
 
       - run: npm run check
 
-      - run: nohup npm run start -w server
+      - run: npm run start -w server &
 
       - run: npm run test -w e2e
 
