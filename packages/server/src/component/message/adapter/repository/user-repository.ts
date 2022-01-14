@@ -5,7 +5,7 @@ import {
 import { User } from '../../domain/entity'
 import { UserRepository } from '../../domain/repository'
 
-export class UserLowRepository implements UserRepository {
+export class UserComponentRepository implements UserRepository {
   private readonly showUserComponentHandler: ShowUserComponentHandler
 
   constructor({

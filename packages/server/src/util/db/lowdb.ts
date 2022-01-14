@@ -4,12 +4,13 @@ import { UserJson } from '../../component/user/adapter/repository/user-repositor
 export const initLowDb = () => {
   fs.mkdirpSync('./tmp')
 
-  const channelJson = {
-    DEFAULT_CHANNEL: {
-      channelSecret: 'DEFAULT_CHANNEL_SECRET',
-      channelAccessToken: 'DEFAULT_CHANNEL_ACCESS_TOKEN',
+  const channelJson = [
+    {
+      id: 'DEFAULT_CHANNEL',
+      secret: 'DEFAULT_CHANNEL_SECRET',
+      accessToken: 'DEFAULT_CHANNEL_ACCESS_TOKEN',
     },
-  }
+  ]
   fs.writeFileSync('./tmp/channels.json', JSON.stringify(channelJson, null, 2))
 
   const userJson: UserJson = {

@@ -41,9 +41,24 @@ Authorization: Bearer DEFAULT_USER
 
 POST {{ BASE_URL }}/v2/bot/message/reply
 Content-Type: application/json
+Authorization: Bearer DEFAULT_CHANNEL_ACCESS_TOKEN
 
 {
     "replyToken": "DEFAULT_USER",
+    "messages": [{
+        "type": "text",
+        "text": "Hello Linely!"
+    }]
+}
+
+###
+
+POST {{ BASE_URL }}/v2/bot/message/push
+Content-Type: application/json
+Authorization: Bearer DEFAULT_CHANNEL_ACCESS_TOKEN
+
+{
+    "to": "DEFAULT_USER",
     "messages": [{
         "type": "text",
         "text": "Hello Linely!"
