@@ -21,6 +21,10 @@ jobs:
 
       - run: npm run check
 
+      - run: npm run start -w server &
+
+      - run: npm run test -w e2e
+
       - run: npm run build -w server
 
       - uses: docker/setup-buildx-action@v1
@@ -29,6 +33,6 @@ jobs:
         with:
           context: .
           push: false
-          tags: dyoshikawa/linely:latest,dyoshikawa/linely:${{ github.sha }}
+          tags: dyoshikawa/linely:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
