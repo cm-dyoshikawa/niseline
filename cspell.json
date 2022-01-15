@@ -1,3 +1,12 @@
 {
-  "words": ["fastify", "linely", "dyoshikawa", "typec", "esbuild", "inversify"]
+  "words": [
+    "fastify",
+    "linely",
+    "dyoshikawa",
+    "typec",
+    "esbuild",
+    "inversify",
+    "liff",
+    "outfile"
+  ]
 }
