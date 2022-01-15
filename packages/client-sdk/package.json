@@ -4,7 +4,8 @@
   "private": false,
   "main": "dist/index.js",
   "dependencies": {
-    "@line/liff": "^2.18.1"
+    "@line/liff": "2.18.1",
+    "sleep-promise": "9.1.0"
   },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js",
