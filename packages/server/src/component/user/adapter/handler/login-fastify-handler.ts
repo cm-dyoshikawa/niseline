@@ -1,17 +1,13 @@
 import { RouteHandlerMethod } from 'fastify'
-import { v4 as uuidV4 } from 'uuid'
-import {
-  FindUserUseCase,
-  UserNotFoundError,
-} from '../../use-case/find-user-use-case'
+import { LoginUseCase, UserNotFoundError } from '../../use-case/login-use-case'
 
 export const buildLoginFastifyHandler =
   ({
     clientEndpoint,
-    findUserUseCase,
+    loginUseCase,
   }: {
     clientEndpoint: string
-    findUserUseCase: FindUserUseCase
+    loginUseCase: LoginUseCase
   }): RouteHandlerMethod =>
   async (request, reply) => {
     const body = request.body as {
@@ -19,15 +15,14 @@ export const buildLoginFastifyHandler =
       state: string
     }
     const url = new URL(clientEndpoint)
-    const findUserUseCaseResult = await findUserUseCase(body.userId)
-    if (findUserUseCaseResult instanceof UserNotFoundError) {
+    const authorizationCode = await loginUseCase(body.userId)
+    if (authorizationCode instanceof UserNotFoundError) {
       reply.redirect(302, '/linely/authorize')
       return
     }
 
-    const code = uuidV4()
     url.search = new URLSearchParams({
-      code,
+      code: authorizationCode,
       state: body.state,
     }).toString()
     reply.redirect(302, clientEndpoint)

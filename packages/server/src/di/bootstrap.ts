@@ -9,11 +9,13 @@ import { ChannelComponentRepository as MessageComponentChannelComponentRepositor
 import { UserComponentRepository as MessageComponentUserComponentRepository } from '../component/message/adapter/repository/user-repository'
 import { buildSendPushMessageUseCase } from '../component/message/use-case/send-push-message-use-case'
 import { buildSendReplyMessageUseCase } from '../component/message/use-case/send-reply-message-use-case'
+import { buildAuthorizeFastifyHandler } from '../component/user/adapter/handler/authorize-fastify-handler'
 import { buildDebugPingFastifyHandler } from '../component/user/adapter/handler/debug-ping-fastify-handler'
 import { buildDebugRegisterUserFastifyHandler } from '../component/user/adapter/handler/debug-register-user-fastify-handler'
 import { buildShowUserComponentHandler } from '../component/user/adapter/handler/find-user-component-handler'
 import { buildFriendshipStatusFastifyHandler } from '../component/user/adapter/handler/get-friendship-status-fastify-handler'
 import { buildGetUserProfileFastifyHandler } from '../component/user/adapter/handler/get-user-profile-fastify-handler'
+import { buildLoginFastifyHandler } from '../component/user/adapter/handler/login-fastify-handler'
 import { buildVerifyAccessTokenFastifyHandler } from '../component/user/adapter/handler/verify-access-token-fastify-handler'
 import { buildVerifyIdTokenFastifyHandler } from '../component/user/adapter/handler/verify-id-token-fastify-handler'
 import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
@@ -99,7 +101,7 @@ export const bootstrap = (): Container => {
         userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
       })
     )
-  container.bind(DI_TYPE.GENERATE_UUID).toDynamicValue(({ container: c }) =>
+  container.bind(DI_TYPE.LOGIN_USE_CASE).toDynamicValue(({ container: c }) =>
     buildLoginUseCase({
       userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
       generateUuid: c.get(DI_TYPE.GENERATE_UUID),
@@ -141,6 +143,17 @@ export const bootstrap = (): Container => {
     .bind(DI_TYPE.FIND_USER_COMPONENT_HANDLER)
     .toDynamicValue(({ container: c }) =>
       buildShowUserComponentHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
+    )
+  container
+    .bind(DI_TYPE.AUTHORIZE_FASTIFY_HANDLER)
+    .toDynamicValue(() => buildAuthorizeFastifyHandler())
+  container
+    .bind(DI_TYPE.LOGIN_FASTIFY_HANDLER)
+    .toDynamicValue(({ container: c }) =>
+      buildLoginFastifyHandler({
+        clientEndpoint: c.get(DI_TYPE.CLIENT_ENDPOINT),
+        loginUseCase: c.get(DI_TYPE.LOGIN_USE_CASE),
+      })
     )
 
   /**
