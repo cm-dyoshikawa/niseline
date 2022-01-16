@@ -5,7 +5,7 @@ import { v4 as uuidV4 } from 'uuid'
 import { ConsoleLogger, Logger } from './logger'
 
 const logger: Logger = new ConsoleLogger()
-const clientEndpoint = 'http://localhost:3001'
+const clientEndpoint = 'https://localhost:3001'
 const authEndpoint = 'http://localhost:3000'
 
 const clientSdk: Pick<Liff, 'init'> = {

@@ -80,7 +80,7 @@ export const bootstrap = (): Container => {
   container
     .bind(DI_TYPE.CLIENT_ENDPOINT)
     .toDynamicValue(
-      () => process.env.CLIENT_ENDPOINT ?? 'http://localhost:3001'
+      () => process.env.CLIENT_ENDPOINT ?? 'https://localhost:3001'
     )
 
   container

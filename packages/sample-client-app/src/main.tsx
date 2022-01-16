@@ -1,8 +1,6 @@
 import clientSdk from 'client-sdk'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
 
 clientSdk
   .init({
@@ -10,9 +8,7 @@ clientSdk
   })
   .then(() => {
     ReactDOM.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>,
+      <React.StrictMode>Sample client app</React.StrictMode>,
       document.getElementById('root')
     )
   })
