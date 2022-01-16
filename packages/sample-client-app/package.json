@@ -9,6 +9,7 @@
     "lint:js:fix": "eslint --fix '**/*.{js,ts}'",
     "typec": "tsc --noEmit",
     "start": "vite --port 3001 --open",
+    "start:http": "vite --port 3001 --https false",
     "build": "vite build"
   },
   "dependencies": {

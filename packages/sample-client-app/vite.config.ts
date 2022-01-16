@@ -9,7 +9,6 @@ export default async (): Promise<UserConfigExport> => {
   return {
     plugins: [react()],
     server: {
-      open: true,
       https: {
         key,
         cert,

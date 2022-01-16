@@ -14,16 +14,16 @@ export const buildLoginFastifyHandler =
       userId: string
       state: string
     }
-    const url = new URL(clientEndpoint)
     const authorizationCode = await loginUseCase(body.userId)
     if (authorizationCode instanceof UserNotFoundError) {
       reply.redirect(302, '/linely/authorize')
       return
     }
 
+    const url = new URL(clientEndpoint)
     url.search = new URLSearchParams({
       code: authorizationCode,
       state: body.state,
     }).toString()
-    reply.redirect(302, clientEndpoint)
+    reply.redirect(302, url.toString())
   }
