@@ -8,7 +8,7 @@ Linely is inspired by [LocalStack](https://github.com/localstack/localstack). Go
 
 ```bash
 docker run -d -p 3000:3000 dyoshikawa/linely:latest
-curl http://localhost:3000/debug/ping
+curl http://localhost:3000/linely/ping
 # => {"ping":"pong"}
 ```
 
@@ -26,7 +26,7 @@ services:
 
 ```bash
 docker compose up -d
-curl http://localhost:3000/debug/ping
+curl http://localhost:3000/linely/ping
 # => {"ping":"pong"}
 ```
 
@@ -34,7 +34,7 @@ curl http://localhost:3000/debug/ping
 
 ```bash
 curl --request POST \
-  --url http://localhost:3000/debug/users \
+  --url http://localhost:3000/linely/users \
   --header 'content-type: application/json' \
   --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
 # => null
@@ -74,3 +74,37 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [ ] [Get number of multicast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-multicast-messages)
 - [ ] [Get number of broadcast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-broadcast-messages)
 - [ ] [Retry api request](https://developers.line.biz/ja/reference/messaging-api/#retry-api-request)
+
+### Client SDK
+
+- [x] [Initialize liff app](https://developers.line.biz/ja/reference/liff/#initialize-liff-app)
+- [ ] [Get os](https://developers.line.biz/ja/reference/liff/#get-os)
+- [ ] [Get language](https://developers.line.biz/ja/reference/liff/#get-language)
+- [ ] [Get version](https://developers.line.biz/ja/reference/liff/#get-version)
+- [ ] [Get line version](https://developers.line.biz/ja/reference/liff/#get-line-version)
+- [ ] [Is in client](https://developers.line.biz/ja/reference/liff/#is-in-client)
+- [ ] [Is logged in](https://developers.line.biz/ja/reference/liff/#is-logged-in)
+- [ ] [Is api available](https://developers.line.biz/ja/reference/liff/#is-api-available)
+- [ ] [Login](https://developers.line.biz/ja/reference/liff/#login)
+- [ ] [Logout](https://developers.line.biz/ja/reference/liff/#logout)
+- [ ] [Get access token](https://developers.line.biz/ja/reference/liff/#get-access-token)
+- [ ] [Get ID token](https://developers.line.biz/ja/reference/liff/#get-id-token)
+- [ ] [Get decoded ID token](https://developers.line.biz/ja/reference/liff/#get-decoded-id-token)
+- [ ] [Get context](https://developers.line.biz/ja/reference/liff/#get-context)
+- [ ] [Get profile](https://developers.line.biz/ja/reference/liff/#get-profile)
+- [ ] [Get friendship](https://developers.line.biz/ja/reference/liff/#get-friendship)
+- [ ] [Permission query](https://developers.line.biz/ja/reference/liff/#permission-query)
+- [ ] [Permission request all](https://developers.line.biz/ja/reference/liff/#permission-request-all)
+- [ ] [Permanent link create url by](https://developers.line.biz/ja/reference/liff/#permanent-link-create-url-by)
+- [ ] [Permanent link create url](https://developers.line.biz/ja/reference/liff/#permanent-link-create-url)
+- [ ] [Permanent link set extra query param](https://developers.line.biz/ja/reference/liff/#permanent-linke-set-extra-query-param)
+- [ ] [Send messages](https://developers.line.biz/ja/reference/liff/#send-messages)
+- [ ] [Open window](https://developers.line.biz/ja/reference/liff/#open-window)
+- [ ] [Share target picker](https://developers.line.biz/ja/reference/liff/#share-target-picker)
+- [ ] [Scan code v2](https://developers.line.biz/ja/reference/liff/#scan-code-v2)
+- [ ] [Scan code](https://developers.line.biz/ja/reference/liff/#scan-code)
+- [ ] [Close window](https://developers.line.biz/ja/reference/liff/#close-window)
+- [ ] [Init plugins](https://developers.line.biz/ja/reference/liff/#init-plugins)
+- [ ] [Bluetooth get availability](https://developers.line.biz/ja/reference/liff/#bluetooth-get-availability)
+- [ ] [Bluetooth request device](https://developers.line.biz/ja/reference/liff/#bluetooth-request-device)
+- [ ] [Bluetooth referring device](https://developers.line.biz/ja/reference/liff/#bluetooth-referring-device)

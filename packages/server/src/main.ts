@@ -1,6 +1,9 @@
 /* eslint-disable camelcase */
+import ejs from 'ejs'
 import Fastify, { RouteHandlerMethod } from 'fastify'
+import fastifyCors from 'fastify-cors'
 import fastifyFormBody from 'fastify-formbody'
+import pointOfView from 'point-of-view'
 import { bootstrap } from './di/bootstrap'
 import { DI_TYPE } from './di/type'
 import { initLowDb } from './util/db/lowdb'
@@ -8,20 +11,38 @@ import { initLowDb } from './util/db/lowdb'
 const fastify = Fastify({
   logger: true,
 })
+fastify.register(fastifyCors)
 fastify.register(fastifyFormBody)
+fastify.register(pointOfView, {
+  engine: {
+    ejs,
+  },
+})
 
 const container = bootstrap()
 
 /**
- * Debug
+ * Linely original
  */
 fastify.get(
-  '/debug/ping',
+  '/linely/ping',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_PING_HANDLER)
 )
 fastify.post(
-  '/debug/users',
+  '/linely/users',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
+)
+fastify.get(
+  '/linely/authorize',
+  container.get<RouteHandlerMethod>(DI_TYPE.AUTHORIZE_FASTIFY_HANDLER)
+)
+fastify.post(
+  '/linely/login',
+  container.get<RouteHandlerMethod>(DI_TYPE.LOGIN_FASTIFY_HANDLER)
+)
+fastify.post(
+  '/linely/token',
+  container.get<RouteHandlerMethod>(DI_TYPE.TOKEN_FASTIFY_HANDLER)
 )
 
 /**

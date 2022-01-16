@@ -3,9 +3,9 @@
 import { RouteHandlerMethod } from 'fastify'
 import { ErrorResponseBody } from '../../../../util/handler'
 import {
-  ShowUserUseCase,
+  FindUserUseCase,
   UserNotFoundError,
-} from '../../use-case/show-user-use-case'
+} from '../../use-case/find-user-use-case'
 
 /**
  * https://developers.line.biz/ja/reference/line-login/#verify-access-token
@@ -21,12 +21,12 @@ interface VerifyAccessTokenResponseBody {
 }
 
 export const buildVerifyAccessTokenFastifyHandler =
-  (showUserUseCase: ShowUserUseCase): RouteHandlerMethod =>
+  (findUserUseCase: FindUserUseCase): RouteHandlerMethod =>
   async (request, reply) => {
     const accessToken = (request.query as VerifyAccessTokenRequestQuery)
       .access_token
 
-    const showUserResult = await showUserUseCase(accessToken)
+    const showUserResult = await findUserUseCase(accessToken)
 
     if (showUserResult instanceof UserNotFoundError) {
       reply.type('application/json').code(400)

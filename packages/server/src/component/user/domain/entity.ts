@@ -4,4 +4,7 @@ export interface User {
   picture: string
   email: string
   channelId: string
+  idToken: string
+  accessToken: string
+  authorizationCode: string
 }

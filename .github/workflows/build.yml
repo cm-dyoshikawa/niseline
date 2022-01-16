@@ -19,6 +19,8 @@ jobs:
 
       - run: npm ci
 
+      - run: npm run build -w client-sdk
+
       - run: npm run check
 
       - run: npm run start -w server &

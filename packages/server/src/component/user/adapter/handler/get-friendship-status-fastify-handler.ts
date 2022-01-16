@@ -1,9 +1,9 @@
 import { RouteHandlerMethod } from 'fastify'
 import { ErrorResponseBody } from '../../../../util/handler'
 import {
-  ShowUserUseCase,
+  FindUserUseCase,
   UserNotFoundError,
-} from '../../use-case/show-user-use-case'
+} from '../../use-case/find-user-use-case'
 
 /**
  * https://developers.line.biz/ja/reference/line-login/#get-user-profile
@@ -13,11 +13,11 @@ interface GetFriendshipStatus {
 }
 
 export const buildFriendshipStatusFastifyHandler =
-  (showUserUseCase: ShowUserUseCase): RouteHandlerMethod =>
+  (findUserUseCase: FindUserUseCase): RouteHandlerMethod =>
   async (request, reply) => {
     const [, accessToken] = request.headers.authorization!.split(' ')
 
-    const showUserResult = await showUserUseCase(accessToken)
+    const showUserResult = await findUserUseCase(accessToken)
     if (showUserResult instanceof UserNotFoundError) {
       reply.type('application/json').code(400)
       return {

@@ -2,11 +2,11 @@
 
 ###
 
-GET {{ BASE_URL }}/debug/ping
+GET {{ BASE_URL }}/linely/ping
 
 ###
 
-POST {{ BASE_URL }}/debug/users
+POST {{ BASE_URL }}/linely/users
 Content-Type: application/json
 
 {

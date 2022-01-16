@@ -13,13 +13,17 @@ export const initLowDb = () => {
   ]
   fs.writeFileSync('./tmp/channels.json', JSON.stringify(channelJson, null, 2))
 
-  const userJson: UserJson = {
-    DEFAULT_USER: {
+  const userJson: UserJson = [
+    {
+      id: 'DEFAULT_USER',
       name: 'Default User',
       picture: 'https://example.com',
       email: 'default@example.com',
       channelId: 'DEFAULT_CHANNEL',
+      accessToken: 'DEFAULT_USER_ACCESS_TOKEN',
+      idToken: 'DEFAULT_USER_ID_TOKEN',
+      authorizationCode: '',
     },
-  }
+  ]
   fs.writeFileSync('./tmp/users.json', JSON.stringify(userJson, null, 2))
 }

@@ -9,20 +9,33 @@ import { ChannelComponentRepository as MessageComponentChannelComponentRepositor
 import { UserComponentRepository as MessageComponentUserComponentRepository } from '../component/message/adapter/repository/user-repository'
 import { buildSendPushMessageUseCase } from '../component/message/use-case/send-push-message-use-case'
 import { buildSendReplyMessageUseCase } from '../component/message/use-case/send-reply-message-use-case'
+import { buildAuthorizeFastifyHandler } from '../component/user/adapter/handler/authorize-fastify-handler'
 import { buildDebugPingFastifyHandler } from '../component/user/adapter/handler/debug-ping-fastify-handler'
 import { buildDebugRegisterUserFastifyHandler } from '../component/user/adapter/handler/debug-register-user-fastify-handler'
+import { buildShowUserComponentHandler } from '../component/user/adapter/handler/find-user-component-handler'
 import { buildFriendshipStatusFastifyHandler } from '../component/user/adapter/handler/get-friendship-status-fastify-handler'
 import { buildGetUserProfileFastifyHandler } from '../component/user/adapter/handler/get-user-profile-fastify-handler'
-import { buildShowUserComponentHandler } from '../component/user/adapter/handler/show-user-component-handler'
+import { buildLoginFastifyHandler } from '../component/user/adapter/handler/login-fastify-handler'
+import { buildTokenFastifyHandler } from '../component/user/adapter/handler/token-fastify-handler'
 import { buildVerifyAccessTokenFastifyHandler } from '../component/user/adapter/handler/verify-access-token-fastify-handler'
 import { buildVerifyIdTokenFastifyHandler } from '../component/user/adapter/handler/verify-id-token-fastify-handler'
 import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
+import { buildFindUserByAuthorizationCodeUseCase } from '../component/user/use-case/find-user-by-authorization-code-use-case'
+import { buildFindUserUseCase } from '../component/user/use-case/find-user-use-case'
+import { buildLoginUseCase } from '../component/user/use-case/login-use-case'
 import { buildRegisterUserUseCase } from '../component/user/use-case/register-user-use-case'
-import { buildShowUserUseCase } from '../component/user/use-case/show-user-use-case'
+import { buildGenerateUuid } from '../util/uuid'
 import { DI_TYPE } from './type'
 
 export const bootstrap = (): Container => {
   const container = new Container()
+
+  /**
+   * Util
+   */
+  container
+    .bind(DI_TYPE.GENERATE_UUID)
+    .toDynamicValue(() => buildGenerateUuid())
 
   /**
    * Channel Component
@@ -67,6 +80,12 @@ export const bootstrap = (): Container => {
    * User Component
    */
   container
+    .bind(DI_TYPE.CLIENT_ENDPOINT)
+    .toDynamicValue(
+      () => process.env.CLIENT_ENDPOINT ?? 'https://localhost:3001'
+    )
+
+  container
     .bind(DI_TYPE.USER_COMPONENT_USER_REPOSITORY)
     .toDynamicValue(() => new UserLowRepository())
 
@@ -78,9 +97,22 @@ export const bootstrap = (): Container => {
       })
     )
   container
-    .bind(DI_TYPE.SHOW_USER_USE_CASE)
+    .bind(DI_TYPE.FIND_USER_USE_CASE)
     .toDynamicValue(({ container: c }) =>
-      buildShowUserUseCase({
+      buildFindUserUseCase({
+        userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
+      })
+    )
+  container.bind(DI_TYPE.LOGIN_USE_CASE).toDynamicValue(({ container: c }) =>
+    buildLoginUseCase({
+      userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
+      generateUuid: c.get(DI_TYPE.GENERATE_UUID),
+    })
+  )
+  container
+    .bind(DI_TYPE.FIND_USER_BY_AUTHORIZATION_CODE_USE_CASE)
+    .toDynamicValue(({ container: c }) =>
+      buildFindUserByAuthorizationCodeUseCase({
         userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
       })
     )
@@ -99,27 +131,47 @@ export const bootstrap = (): Container => {
   container
     .bind(DI_TYPE.VERIFY_ACCESS_TOKEN_FASTIFY_HANDLER)
     .toDynamicValue(({ container: c }) =>
-      buildVerifyAccessTokenFastifyHandler(c.get(DI_TYPE.SHOW_USER_USE_CASE))
+      buildVerifyAccessTokenFastifyHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
     )
   container
     .bind(DI_TYPE.VERIFY_ID_TOKEN_FASTIFY_HANDLER)
     .toDynamicValue(({ container: c }) =>
-      buildVerifyIdTokenFastifyHandler(c.get(DI_TYPE.SHOW_USER_USE_CASE))
+      buildVerifyIdTokenFastifyHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
     )
   container
     .bind(DI_TYPE.GET_USER_PROFILE_FASTIFY_HANDLER)
     .toDynamicValue(({ container: c }) =>
-      buildGetUserProfileFastifyHandler(c.get(DI_TYPE.SHOW_USER_USE_CASE))
+      buildGetUserProfileFastifyHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
     )
   container
     .bind(DI_TYPE.GET_FRIENDSHIP_STATUS_FASTIFY_HANDLER)
     .toDynamicValue(({ container: c }) =>
-      buildFriendshipStatusFastifyHandler(c.get(DI_TYPE.SHOW_USER_USE_CASE))
+      buildFriendshipStatusFastifyHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
     )
   container
-    .bind(DI_TYPE.SHOW_USER_COMPONENT_HANDLER)
+    .bind(DI_TYPE.FIND_USER_COMPONENT_HANDLER)
     .toDynamicValue(({ container: c }) =>
-      buildShowUserComponentHandler(c.get(DI_TYPE.SHOW_USER_USE_CASE))
+      buildShowUserComponentHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
+    )
+  container
+    .bind(DI_TYPE.AUTHORIZE_FASTIFY_HANDLER)
+    .toDynamicValue(() => buildAuthorizeFastifyHandler())
+  container
+    .bind(DI_TYPE.LOGIN_FASTIFY_HANDLER)
+    .toDynamicValue(({ container: c }) =>
+      buildLoginFastifyHandler({
+        clientEndpoint: c.get(DI_TYPE.CLIENT_ENDPOINT),
+        loginUseCase: c.get(DI_TYPE.LOGIN_USE_CASE),
+      })
+    )
+  container
+    .bind(DI_TYPE.TOKEN_FASTIFY_HANDLER)
+    .toDynamicValue(({ container: c }) =>
+      buildTokenFastifyHandler({
+        findUserByAuthorizationTokenUseCase: c.get(
+          DI_TYPE.FIND_USER_BY_AUTHORIZATION_CODE_USE_CASE
+        ),
+      })
     )
 
   /**
@@ -128,7 +180,7 @@ export const bootstrap = (): Container => {
   container.bind(DI_TYPE.MESSAGE_COMPONENT_USER_REPOSITORY).toDynamicValue(
     ({ container: c }) =>
       new MessageComponentUserComponentRepository({
-        showUserComponentHandler: c.get(DI_TYPE.SHOW_USER_COMPONENT_HANDLER),
+        findUserComponentHandler: c.get(DI_TYPE.FIND_USER_COMPONENT_HANDLER),
       })
   )
   container.bind(DI_TYPE.MESSAGE_COMPONENT_CHANNEL_REPOSITORY).toDynamicValue(
