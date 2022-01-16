@@ -9,9 +9,8 @@ export const buildTokenFastifyHandler =
       code: string
     }
 
-    reply.type('application/json').code(200)
-    return {
+    reply.type('application/json').code(200).send({
       accessToken: 'DEFAULT_USER_ACCESS_TOKEN',
       idToken: 'DEFAULT_USER_ID_TOKEN',
-    }
+    })
   }
