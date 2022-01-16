@@ -15,6 +15,7 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "fastify": "3.25.3",
+    "fastify-cors": "^6.0.2",
     "fastify-formbody": "5.2.0",
     "fs-extra": "10.0.0",
     "inversify": "6.0.1",

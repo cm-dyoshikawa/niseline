@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import ejs from 'ejs'
 import Fastify, { RouteHandlerMethod } from 'fastify'
+import fastifyCors from 'fastify-cors'
 import fastifyFormBody from 'fastify-formbody'
 import pointOfView from 'point-of-view'
 import { bootstrap } from './di/bootstrap'
@@ -10,6 +11,7 @@ import { initLowDb } from './util/db/lowdb'
 const fastify = Fastify({
   logger: true,
 })
+fastify.register(fastifyCors)
 fastify.register(fastifyFormBody)
 fastify.register(pointOfView, {
   engine: {
