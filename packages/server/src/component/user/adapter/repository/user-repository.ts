@@ -27,6 +27,30 @@ export class UserLowRepository implements UserRepository {
     return userRecord
   }
 
+  async findByAccessToken(accessToken: string): Promise<User | undefined> {
+    await this.low.read()
+    const userRecord: UserRecord | undefined = this.low.data?.find(
+      (r) => r.accessToken === accessToken
+    )
+    if (userRecord == null) {
+      return undefined
+    }
+
+    return userRecord
+  }
+
+  async findByIdToken(idToken: string): Promise<User | undefined> {
+    await this.low.read()
+    const userRecord: UserRecord | undefined = this.low.data?.find(
+      (r) => r.idToken === idToken
+    )
+    if (userRecord == null) {
+      return undefined
+    }
+
+    return userRecord
+  }
+
   async create(user: User): Promise<void> {
     await this.low.read()
     this.low.data = this.low.data!.concat(user)
