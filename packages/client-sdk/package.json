@@ -6,7 +6,7 @@
   "dependencies": {
     "@line/liff": "2.18.1",
     "sleep-promise": "9.1.0",
-    "uuid": "^8.3.2"
+    "uuid": "8.3.2"
   },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --outfile=dist/index.js && tsc --emitDeclarationOnly --outDir dist",
