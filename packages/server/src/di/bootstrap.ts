@@ -16,6 +16,7 @@ import { buildShowUserComponentHandler } from '../component/user/adapter/handler
 import { buildFriendshipStatusFastifyHandler } from '../component/user/adapter/handler/get-friendship-status-fastify-handler'
 import { buildGetUserProfileFastifyHandler } from '../component/user/adapter/handler/get-user-profile-fastify-handler'
 import { buildLoginFastifyHandler } from '../component/user/adapter/handler/login-fastify-handler'
+import { buildTokenFastifyHandler } from '../component/user/adapter/handler/token-fastify-handler'
 import { buildVerifyAccessTokenFastifyHandler } from '../component/user/adapter/handler/verify-access-token-fastify-handler'
 import { buildVerifyIdTokenFastifyHandler } from '../component/user/adapter/handler/verify-id-token-fastify-handler'
 import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
@@ -155,6 +156,9 @@ export const bootstrap = (): Container => {
         loginUseCase: c.get(DI_TYPE.LOGIN_USE_CASE),
       })
     )
+  container
+    .bind(DI_TYPE.TOKEN_FASTIFY_HANDLER)
+    .toDynamicValue(() => buildTokenFastifyHandler())
 
   /**
    * Message Component

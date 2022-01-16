@@ -38,7 +38,7 @@ fastify.post(
   '/linely/login',
   container.get<RouteHandlerMethod>(DI_TYPE.LOGIN_FASTIFY_HANDLER)
 )
-fastify.get(
+fastify.post(
   '/linely/token',
   container.get<RouteHandlerMethod>(DI_TYPE.TOKEN_FASTIFY_HANDLER)
 )

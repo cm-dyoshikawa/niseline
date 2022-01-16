@@ -2,8 +2,16 @@ import { RouteHandlerMethod } from 'fastify'
 
 export const buildTokenFastifyHandler =
   (): RouteHandlerMethod => async (request, reply) => {
-    const query = request.query as {
-      state: string
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const body = request.body as {
+      authorizationCode: string
+      redirectUri: string
+      code: string
     }
-    reply.view('/template/authorize.ejs', { state: query.state })
+
+    reply.type('application/json').code(200)
+    return {
+      accessToken: 'DEFAULT_USER_ACCESS_TOKEN',
+      idToken: 'DEFAULT_USER_ID_TOKEN',
+    }
   }
