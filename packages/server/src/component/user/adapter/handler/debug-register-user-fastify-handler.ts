@@ -22,6 +22,7 @@ export const buildDebugRegisterUserFastifyHandler =
       channelId: body.channelId,
       accessToken: body.accessToken,
       idToken: body.idToken,
+      authorizationCode: '',
     })
 
     reply.type('application/json').code(200)

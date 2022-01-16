@@ -3,10 +3,10 @@ import { UserRepository } from '../domain/repository'
 
 export class UserNotFoundError extends Error {}
 
-export type ShowUserUseCase = (id: string) => Promise<User | UserNotFoundError>
+export type FindUserUseCase = (id: string) => Promise<User | UserNotFoundError>
 
 export const buildFindUserUseCase =
-  ({ userRepository }: { userRepository: UserRepository }): ShowUserUseCase =>
+  ({ userRepository }: { userRepository: UserRepository }): FindUserUseCase =>
   async (id: string) => {
     const user = await userRepository.find(id)
     if (user == null) {

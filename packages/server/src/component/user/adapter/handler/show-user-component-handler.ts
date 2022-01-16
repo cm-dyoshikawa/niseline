@@ -1,7 +1,7 @@
 import { User } from '../../domain/entity'
 import {
-  ShowUserUseCase,
-  UserNotFoundError as ShowUserUseCaseUserNotFoundError,
+  FindUserUseCase,
+  UserNotFoundError as FindUserUseCaseUserNotFoundError,
 } from '../../use-case/find-user-use-case'
 
 export class UserNotFoundError extends Error {}
@@ -11,11 +11,11 @@ export type ShowUserComponentHandler = (
 ) => Promise<User | UserNotFoundError>
 
 export const buildShowUserComponentHandler =
-  (showUserUseCase: ShowUserUseCase): ShowUserComponentHandler =>
+  (findUserUseCase: FindUserUseCase): ShowUserComponentHandler =>
   async (id: string) => {
-    const showUserResult = await showUserUseCase(id)
+    const showUserResult = await findUserUseCase(id)
 
-    if (showUserResult instanceof ShowUserUseCaseUserNotFoundError) {
+    if (showUserResult instanceof FindUserUseCaseUserNotFoundError) {
       return new UserNotFoundError()
     }
 

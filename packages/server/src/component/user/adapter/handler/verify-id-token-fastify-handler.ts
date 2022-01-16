@@ -3,7 +3,7 @@
 import { RouteHandlerMethod } from 'fastify'
 import { ErrorResponseBody } from '../../../../util/handler'
 import {
-  ShowUserUseCase,
+  FindUserUseCase,
   UserNotFoundError,
 } from '../../use-case/find-user-use-case'
 
@@ -29,11 +29,11 @@ interface VerifyIdTokenResponseBody {
 }
 
 export const buildVerifyIdTokenFastifyHandler =
-  (showUserUseCase: ShowUserUseCase): RouteHandlerMethod =>
+  (findUserUseCase: FindUserUseCase): RouteHandlerMethod =>
   async (request, reply) => {
     const idToken = (request.body as VerifyIdTokenRequestBody).id_token
 
-    const showUserResult = await showUserUseCase(idToken)
+    const showUserResult = await findUserUseCase(idToken)
 
     if (showUserResult instanceof UserNotFoundError) {
       reply.type('application/json').code(400)
