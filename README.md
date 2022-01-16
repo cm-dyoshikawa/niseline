@@ -77,7 +77,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 
 ### Client SDK
 
-- [ ] [Initialize liff app](https://developers.line.biz/ja/reference/liff/#initialize-liff-app)
+- [x] [Initialize liff app](https://developers.line.biz/ja/reference/liff/#initialize-liff-app)
 - [ ] [Get os](https://developers.line.biz/ja/reference/liff/#get-os)
 - [ ] [Get language](https://developers.line.biz/ja/reference/liff/#get-language)
 - [ ] [Get version](https://developers.line.biz/ja/reference/liff/#get-version)
