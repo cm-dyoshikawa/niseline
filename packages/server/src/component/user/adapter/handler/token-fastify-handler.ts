@@ -4,7 +4,7 @@ export const buildTokenFastifyHandler =
   (): RouteHandlerMethod => async (request, reply) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const body = request.body as {
-      authorizationCode: string
+      grantType: string
       redirectUri: string
       code: string
     }

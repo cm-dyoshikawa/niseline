@@ -1,6 +1,8 @@
-import clientSdk from 'client-sdk'
+import { buildClientSdk } from 'client-sdk'
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+const clientSdk = buildClientSdk()
 
 clientSdk
   .init({

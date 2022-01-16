@@ -9,7 +9,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --target=chrome58,firefox57,safari11,edge16 --outfile=dist/index.js && tsc --emitDeclarationOnly --outDir dist",
+    "build": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --outfile=dist/index.js && tsc --emitDeclarationOnly --outDir dist",
     "lint:js": "eslint '**/*.{js,ts}'",
     "lint:js:fix": "eslint --fix '**/*.{js,ts}'",
     "typec": "tsc --noEmit"
