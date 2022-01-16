@@ -7,6 +7,8 @@ import { bootstrap } from './di/bootstrap'
 import { DI_TYPE } from './di/type'
 import { initLowDb } from './util/db/lowdb'
 
+const clientEndpoint = 'http://localhost:3000'
+
 const fastify = Fastify({
   logger: true,
 })
@@ -30,11 +32,14 @@ fastify.post(
   '/linely/users',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
 )
-fastify.get('/linely/auth/authorize', (_, reply) => {
-  reply.view('/template/authorize.ejs', { text: 'text' })
+fastify.get('/linely/authorize', (_, reply) => {
+  reply.view('/template/authorize.ejs')
 })
-fastify.get('/linely/auth/token', (_, reply) => {
-  reply.view('/template/authorize.ejs', { text: 'text' })
+fastify.post('/linely/login', (_, reply) => {
+  reply.redirect(302, clientEndpoint)
+})
+fastify.get('/linely/token', (_, reply) => {
+  reply.view('/template/authorize.ejs')
 })
 
 /**
