@@ -10,5 +10,5 @@ export const buildRegisterUserUseCase =
     userRepository: UserRepository
   }): RegisterUserUseCase =>
   async (user: User) => {
-    await userRepository.create(user)
+    await userRepository.save(user)
   }

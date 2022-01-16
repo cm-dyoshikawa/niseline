@@ -1,23 +1,23 @@
 import {
   ShowUserComponentHandler,
   UserNotFoundError,
-} from '../../../user/adapter/handler/show-user-component-handler'
+} from '../../../user/adapter/handler/find-user-component-handler'
 import { User } from '../../domain/entity'
 import { UserRepository } from '../../domain/repository'
 
 export class UserComponentRepository implements UserRepository {
-  private readonly showUserComponentHandler: ShowUserComponentHandler
+  private readonly findUserComponentHandler: ShowUserComponentHandler
 
   constructor({
-    showUserComponentHandler,
+    findUserComponentHandler,
   }: {
-    showUserComponentHandler: ShowUserComponentHandler
+    findUserComponentHandler: ShowUserComponentHandler
   }) {
-    this.showUserComponentHandler = showUserComponentHandler
+    this.findUserComponentHandler = findUserComponentHandler
   }
 
   async findUser(id: string): Promise<User | undefined> {
-    const showUserResult = await this.showUserComponentHandler(id)
+    const showUserResult = await this.findUserComponentHandler(id)
 
     if (showUserResult instanceof UserNotFoundError) {
       return undefined

@@ -51,7 +51,7 @@ export class UserLowRepository implements UserRepository {
     return userRecord
   }
 
-  async create(user: User): Promise<void> {
+  async save(user: User): Promise<void> {
     await this.low.read()
     this.low.data = this.low.data!.concat(user)
     await this.low.write()

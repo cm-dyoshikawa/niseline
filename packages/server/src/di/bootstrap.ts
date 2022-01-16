@@ -11,18 +11,27 @@ import { buildSendPushMessageUseCase } from '../component/message/use-case/send-
 import { buildSendReplyMessageUseCase } from '../component/message/use-case/send-reply-message-use-case'
 import { buildDebugPingFastifyHandler } from '../component/user/adapter/handler/debug-ping-fastify-handler'
 import { buildDebugRegisterUserFastifyHandler } from '../component/user/adapter/handler/debug-register-user-fastify-handler'
+import { buildShowUserComponentHandler } from '../component/user/adapter/handler/find-user-component-handler'
 import { buildFriendshipStatusFastifyHandler } from '../component/user/adapter/handler/get-friendship-status-fastify-handler'
 import { buildGetUserProfileFastifyHandler } from '../component/user/adapter/handler/get-user-profile-fastify-handler'
-import { buildShowUserComponentHandler } from '../component/user/adapter/handler/show-user-component-handler'
 import { buildVerifyAccessTokenFastifyHandler } from '../component/user/adapter/handler/verify-access-token-fastify-handler'
 import { buildVerifyIdTokenFastifyHandler } from '../component/user/adapter/handler/verify-id-token-fastify-handler'
 import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
 import { buildFindUserUseCase } from '../component/user/use-case/find-user-use-case'
+import { buildLoginUseCase } from '../component/user/use-case/login-use-case'
 import { buildRegisterUserUseCase } from '../component/user/use-case/register-user-use-case'
+import { buildGenerateUuid } from '../util/uuid'
 import { DI_TYPE } from './type'
 
 export const bootstrap = (): Container => {
   const container = new Container()
+
+  /**
+   * Util
+   */
+  container
+    .bind(DI_TYPE.GENERATE_UUID)
+    .toDynamicValue(() => buildGenerateUuid())
 
   /**
    * Channel Component
@@ -90,6 +99,12 @@ export const bootstrap = (): Container => {
         userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
       })
     )
+  container.bind(DI_TYPE.GENERATE_UUID).toDynamicValue(({ container: c }) =>
+    buildLoginUseCase({
+      userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
+      generateUuid: c.get(DI_TYPE.GENERATE_UUID),
+    })
+  )
 
   container
     .bind(DI_TYPE.DEBUG_PING_HANDLER)
@@ -123,7 +138,7 @@ export const bootstrap = (): Container => {
       buildFriendshipStatusFastifyHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
     )
   container
-    .bind(DI_TYPE.SHOW_USER_COMPONENT_HANDLER)
+    .bind(DI_TYPE.FIND_USER_COMPONENT_HANDLER)
     .toDynamicValue(({ container: c }) =>
       buildShowUserComponentHandler(c.get(DI_TYPE.FIND_USER_USE_CASE))
     )
@@ -134,7 +149,7 @@ export const bootstrap = (): Container => {
   container.bind(DI_TYPE.MESSAGE_COMPONENT_USER_REPOSITORY).toDynamicValue(
     ({ container: c }) =>
       new MessageComponentUserComponentRepository({
-        showUserComponentHandler: c.get(DI_TYPE.SHOW_USER_COMPONENT_HANDLER),
+        findUserComponentHandler: c.get(DI_TYPE.FIND_USER_COMPONENT_HANDLER),
       })
   )
   container.bind(DI_TYPE.MESSAGE_COMPONENT_CHANNEL_REPOSITORY).toDynamicValue(
