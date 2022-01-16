@@ -20,6 +20,7 @@ import { buildTokenFastifyHandler } from '../component/user/adapter/handler/toke
 import { buildVerifyAccessTokenFastifyHandler } from '../component/user/adapter/handler/verify-access-token-fastify-handler'
 import { buildVerifyIdTokenFastifyHandler } from '../component/user/adapter/handler/verify-id-token-fastify-handler'
 import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
+import { buildFindUserByAuthorizationCodeUseCase } from '../component/user/use-case/find-user-by-authorization-code-use-case'
 import { buildFindUserUseCase } from '../component/user/use-case/find-user-use-case'
 import { buildLoginUseCase } from '../component/user/use-case/login-use-case'
 import { buildRegisterUserUseCase } from '../component/user/use-case/register-user-use-case'
@@ -108,6 +109,13 @@ export const bootstrap = (): Container => {
       generateUuid: c.get(DI_TYPE.GENERATE_UUID),
     })
   )
+  container
+    .bind(DI_TYPE.FIND_USER_BY_AUTHORIZATION_CODE_USE_CASE)
+    .toDynamicValue(({ container: c }) =>
+      buildFindUserByAuthorizationCodeUseCase({
+        userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
+      })
+    )
 
   container
     .bind(DI_TYPE.DEBUG_PING_HANDLER)
@@ -158,7 +166,13 @@ export const bootstrap = (): Container => {
     )
   container
     .bind(DI_TYPE.TOKEN_FASTIFY_HANDLER)
-    .toDynamicValue(() => buildTokenFastifyHandler())
+    .toDynamicValue(({ container: c }) =>
+      buildTokenFastifyHandler({
+        findUserByAuthorizationTokenUseCase: c.get(
+          DI_TYPE.FIND_USER_BY_AUTHORIZATION_CODE_USE_CASE
+        ),
+      })
+    )
 
   /**
    * Message Component

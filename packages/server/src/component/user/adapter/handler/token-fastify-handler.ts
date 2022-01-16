@@ -1,16 +1,32 @@
 import { RouteHandlerMethod } from 'fastify'
+import {
+  FindUserByAuthorizationCodeUseCase,
+  UserNotFoundError,
+} from '../../use-case/find-user-by-authorization-code-use-case'
 
 export const buildTokenFastifyHandler =
-  (): RouteHandlerMethod => async (request, reply) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ({
+    findUserByAuthorizationTokenUseCase,
+  }: {
+    findUserByAuthorizationTokenUseCase: FindUserByAuthorizationCodeUseCase
+  }): RouteHandlerMethod =>
+  async (request, reply) => {
     const body = request.body as {
       grantType: string
       redirectUri: string
       code: string
     }
 
+    const user = await findUserByAuthorizationTokenUseCase(body.code)
+    if (user instanceof UserNotFoundError) {
+      reply.type('application/json').code(401).send({
+        message: 'Invalid authorization code',
+      })
+      return
+    }
+
     reply.type('application/json').code(200).send({
-      accessToken: 'DEFAULT_USER_ACCESS_TOKEN',
-      idToken: 'DEFAULT_USER_ID_TOKEN',
+      accessToken: user.accessToken,
+      idToken: user.idToken,
     })
   }
