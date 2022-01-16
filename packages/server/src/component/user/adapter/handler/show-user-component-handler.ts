@@ -2,7 +2,7 @@ import { User } from '../../domain/entity'
 import {
   ShowUserUseCase,
   UserNotFoundError as ShowUserUseCaseUserNotFoundError,
-} from '../../use-case/show-user-use-case'
+} from '../../use-case/find-user-use-case'
 
 export class UserNotFoundError extends Error {}
 

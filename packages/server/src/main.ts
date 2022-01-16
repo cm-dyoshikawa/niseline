@@ -3,6 +3,7 @@ import ejs from 'ejs'
 import Fastify, { RouteHandlerMethod } from 'fastify'
 import fastifyFormBody from 'fastify-formbody'
 import pointOfView from 'point-of-view'
+import { v4 as uuidV4 } from 'uuid'
 import { bootstrap } from './di/bootstrap'
 import { DI_TYPE } from './di/type'
 import { initLowDb } from './util/db/lowdb'
@@ -32,10 +33,23 @@ fastify.post(
   '/linely/users',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
 )
-fastify.get('/linely/authorize', (_, reply) => {
-  reply.view('/template/authorize.ejs')
+fastify.get('/linely/authorize', (request, reply) => {
+  const query = request.query as {
+    state: string
+  }
+  reply.view('/template/authorize.ejs', { state: query.state })
 })
-fastify.post('/linely/login', (_, reply) => {
+fastify.post('/linely/login', (request, reply) => {
+  const body = request.body as {
+    userId: string
+    state: string
+  }
+  const url = new URL(clientEndpoint)
+  const code = uuidV4()
+  url.search = new URLSearchParams({
+    code,
+    state: body.state,
+  }).toString()
   reply.redirect(302, clientEndpoint)
 })
 fastify.get('/linely/token', (_, reply) => {

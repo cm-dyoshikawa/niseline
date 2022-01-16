@@ -5,7 +5,7 @@ import { ErrorResponseBody } from '../../../../util/handler'
 import {
   ShowUserUseCase,
   UserNotFoundError,
-} from '../../use-case/show-user-use-case'
+} from '../../use-case/find-user-use-case'
 
 /**
  * https://developers.line.biz/ja/reference/line-login/#verify-access-token
