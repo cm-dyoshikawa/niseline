@@ -7,6 +7,8 @@
     "esbuild",
     "inversify",
     "liff",
-    "outfile"
+    "outfile",
+    "formbody",
+    "camelcase"
   ]
 }

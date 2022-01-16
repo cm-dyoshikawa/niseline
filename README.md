@@ -8,7 +8,7 @@ Linely is inspired by [LocalStack](https://github.com/localstack/localstack). Go
 
 ```bash
 docker run -d -p 3000:3000 dyoshikawa/linely:latest
-curl http://localhost:3000/debug/ping
+curl http://localhost:3000/linely/ping
 # => {"ping":"pong"}
 ```
 
@@ -26,7 +26,7 @@ services:
 
 ```bash
 docker compose up -d
-curl http://localhost:3000/debug/ping
+curl http://localhost:3000/linely/ping
 # => {"ping":"pong"}
 ```
 
@@ -34,7 +34,7 @@ curl http://localhost:3000/debug/ping
 
 ```bash
 curl --request POST \
-  --url http://localhost:3000/debug/users \
+  --url http://localhost:3000/linely/users \
   --header 'content-type: application/json' \
   --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
 # => null
