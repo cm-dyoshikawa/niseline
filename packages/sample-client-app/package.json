@@ -13,7 +13,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "client-sdk": "file:packages/client-sdk/dist",
+    "client-sdk": "file:packages/client-sdk",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },

@@ -38,9 +38,10 @@ fastify.post(
   '/linely/login',
   container.get<RouteHandlerMethod>(DI_TYPE.LOGIN_FASTIFY_HANDLER)
 )
-fastify.get('/linely/token', (_, reply) => {
-  reply.view('/template/authorize.ejs')
-})
+fastify.get(
+  '/linely/token',
+  container.get<RouteHandlerMethod>(DI_TYPE.TOKEN_FASTIFY_HANDLER)
+)
 
 /**
  * Login API
