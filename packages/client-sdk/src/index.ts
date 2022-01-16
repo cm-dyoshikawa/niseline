@@ -2,7 +2,7 @@
 
 import { Liff } from '@line/liff'
 import { v4 as uuidV4 } from 'uuid'
-import { ConsoleLogger, Logger } from './logger'
+import { ConsoleLogger, Logger } from './util/logger'
 
 const logger: Logger = new ConsoleLogger()
 const clientEndpoint = 'https://localhost:3001'
