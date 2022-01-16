@@ -2,26 +2,9 @@ import { JSONFile, Low } from 'lowdb'
 import { User } from '../../domain/entity'
 import { UserRepository } from '../../domain/repository'
 
-export interface UserRecord {
-  name: string
-  picture: string
-  email: string
-  channelId: string
-}
+export type UserRecord = User
 
-const toUserRecord = (user: User): UserRecord => ({
-  name: user.name,
-  picture: user.picture,
-  email: user.email,
-  channelId: user.channelId,
-})
-
-const toUser = (id: string, userRecord: UserRecord): User => ({
-  ...userRecord,
-  id,
-})
-
-export type UserJson = Record<string, UserRecord>
+export type UserJson = ReadonlyArray<UserRecord>
 
 export class UserLowRepository implements UserRepository {
   private readonly low: Low<UserJson>
@@ -34,17 +17,19 @@ export class UserLowRepository implements UserRepository {
 
   async find(id: string): Promise<User | undefined> {
     await this.low.read()
-    const userRecord: UserRecord | undefined = this.low.data?.[id]
+    const userRecord: UserRecord | undefined = this.low.data?.find(
+      (r) => r.id === id
+    )
     if (userRecord == null) {
       return undefined
     }
 
-    return toUser(id, userRecord)
+    return userRecord
   }
 
   async create(user: User): Promise<void> {
     await this.low.read()
-    this.low.data![user.id] = toUserRecord(user)
+    this.low.data = this.low.data!.concat(user)
     await this.low.write()
   }
 }

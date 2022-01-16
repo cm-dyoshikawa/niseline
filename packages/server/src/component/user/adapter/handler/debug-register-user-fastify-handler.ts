@@ -10,6 +10,8 @@ export const buildDebugRegisterUserFastifyHandler =
       picture: string
       email: string
       channelId: string
+      accessToken: string
+      idToken: string
     }
 
     await registerUserUseCase({
@@ -18,6 +20,8 @@ export const buildDebugRegisterUserFastifyHandler =
       picture: body.picture,
       email: body.email,
       channelId: body.channelId,
+      accessToken: body.accessToken,
+      idToken: body.idToken,
     })
 
     reply.type('application/json').code(200)
