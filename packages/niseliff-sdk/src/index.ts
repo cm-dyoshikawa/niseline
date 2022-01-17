@@ -23,7 +23,7 @@ import { buildOpenWindow } from './method/open-window'
 import { buildSendMessages } from './method/send-messages'
 import { ConsoleLogger, Logger } from './util/logger'
 
-export const buildClientSdk = (params?: {
+export const buildNiseLiff = (params?: {
   clientEndpoint?: string
   authEndpoint?: string
   os?: 'ios' | 'android' | 'web' | undefined
