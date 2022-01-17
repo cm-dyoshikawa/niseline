@@ -13,7 +13,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "niseliff-sdk": "file:packages/niseliff-sdk",
+    "@niseline/niseliff": "file:packages/niseliff-sdk",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
