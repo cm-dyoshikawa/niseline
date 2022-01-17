@@ -4,6 +4,7 @@ import { Liff } from '@line/liff'
 import { buildGetAccessToken } from './method/get-access-token'
 import { buildGetContext } from './method/get-context'
 import { buildGetDecodedIdToken } from './method/get-decoded-id-token'
+import { buildGetFriendship } from './method/get-friendship'
 import { buildGetIdToken } from './method/get-id-token'
 import { buildGetLanguage } from './method/get-language'
 import { buildGetLineVersion } from './method/get-line-version'
@@ -43,6 +44,7 @@ export const buildClientSdk = (params?: {
   | 'getDecodedIDToken'
   | 'getContext'
   | 'getProfile'
+  | 'getFriendship'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
@@ -69,5 +71,6 @@ export const buildClientSdk = (params?: {
     getDecodedIDToken: buildGetDecodedIdToken(),
     getContext: buildGetContext(),
     getProfile: buildGetProfile(),
+    getFriendship: buildGetFriendship(),
   }
 }
