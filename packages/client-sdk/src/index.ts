@@ -8,6 +8,7 @@ import { buildGetIdToken } from './method/get-id-token'
 import { buildGetLanguage } from './method/get-language'
 import { buildGetLineVersion } from './method/get-line-version'
 import { buildGetOs } from './method/get-os'
+import { buildGetProfile } from './method/get-profile'
 import { buildGetVersion } from './method/get-version'
 import { buildInit } from './method/init'
 import { buildIsApiAvailable } from './method/is-api-available'
@@ -41,6 +42,7 @@ export const buildClientSdk = (params?: {
   | 'getIDToken'
   | 'getDecodedIDToken'
   | 'getContext'
+  | 'getProfile'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
@@ -66,5 +68,6 @@ export const buildClientSdk = (params?: {
     login: buildLogin(),
     getDecodedIDToken: buildGetDecodedIdToken(),
     getContext: buildGetContext(),
+    getProfile: buildGetProfile(),
   }
 }

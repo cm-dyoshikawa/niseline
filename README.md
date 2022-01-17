@@ -91,7 +91,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [x] [Get ID token](https://developers.line.biz/ja/reference/liff/#get-id-token)
 - [x] [Get decoded ID token](https://developers.line.biz/ja/reference/liff/#get-decoded-id-token)
 - [x] [Get context](https://developers.line.biz/ja/reference/liff/#get-context)
-- [ ] [Get profile](https://developers.line.biz/ja/reference/liff/#get-profile)
+- [x] [Get profile](https://developers.line.biz/ja/reference/liff/#get-profile)
 - [ ] [Get friendship](https://developers.line.biz/ja/reference/liff/#get-friendship)
 - [ ] [Permission query](https://developers.line.biz/ja/reference/liff/#permission-query)
 - [ ] [Permission request all](https://developers.line.biz/ja/reference/liff/#permission-request-all)
