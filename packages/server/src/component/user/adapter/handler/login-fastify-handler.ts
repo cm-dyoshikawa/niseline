@@ -16,7 +16,7 @@ export const buildLoginFastifyHandler =
     }
     const authorizationCode = await loginUseCase(body.userId)
     if (authorizationCode instanceof UserNotFoundError) {
-      reply.redirect(302, '/linely/authorize')
+      reply.redirect(302, '/niseline/authorize')
       return
     }
 

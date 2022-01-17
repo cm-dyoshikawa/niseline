@@ -14,7 +14,7 @@ test('Send reply message', async () => {
       messages: [
         {
           type: 'text',
-          text: 'Hello Linely!',
+          text: 'Hello NiseLine!',
         },
       ],
     }),

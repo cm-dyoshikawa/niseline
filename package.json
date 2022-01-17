@@ -1,5 +1,5 @@
 {
-  "name": "linely",
+  "name": "niseline",
   "private": true,
   "version": "0.0.0",
   "description": "",
@@ -7,8 +7,8 @@
   "author": "dyoshikawa",
   "license": "MIT",
   "scripts": {
-    "build": "docker build -t dyoshikawa/linely:latest .",
-    "publish": "docker push dyoshikawa/linely:latest",
+    "build": "docker build -t dyoshikawa/niseline:latest .",
+    "publish": "docker push dyoshikawa/niseline:latest",
     "format": "prettier --write .",
     "format:check": "prettier -c .",
     "lint:secret": "secretlint '**/*'",

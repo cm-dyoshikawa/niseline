@@ -35,6 +35,6 @@ jobs:
         with:
           context: .
           push: false
-          tags: dyoshikawa/linely:${{ github.sha }}
+          tags: dyoshikawa/niseline:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
