@@ -104,7 +104,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [ ] [Scan code v2](https://developers.line.biz/ja/reference/liff/#scan-code-v2)
 - [ ] [Scan code](https://developers.line.biz/ja/reference/liff/#scan-code)
 - [x] [Close window](https://developers.line.biz/ja/reference/liff/#close-window)
-- [ ] [Init plugins](https://developers.line.biz/ja/reference/liff/#init-plugins)
+- [x] [Init plugins](https://developers.line.biz/ja/reference/liff/#init-plugins)
 - [ ] [Bluetooth get availability](https://developers.line.biz/ja/reference/liff/#bluetooth-get-availability)
 - [ ] [Bluetooth request device](https://developers.line.biz/ja/reference/liff/#bluetooth-request-device)
 - [ ] [Bluetooth referring device](https://developers.line.biz/ja/reference/liff/#bluetooth-referring-device)

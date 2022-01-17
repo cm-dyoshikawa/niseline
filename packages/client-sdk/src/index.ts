@@ -13,6 +13,7 @@ import { buildGetOs } from './method/get-os'
 import { buildGetProfile } from './method/get-profile'
 import { buildGetVersion } from './method/get-version'
 import { buildInit } from './method/init'
+import { buildInitPlugins } from './method/init-plugins'
 import { buildIsApiAvailable } from './method/is-api-available'
 import { buildIsInClient } from './method/is-in-client'
 import { buildIsLoggedIn } from './method/is-logged-in'
@@ -49,6 +50,7 @@ export const buildClientSdk = (params?: {
   | 'getFriendship'
   | 'sendMessages'
   | 'closeWindow'
+  | 'initPlugins'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
@@ -78,5 +80,6 @@ export const buildClientSdk = (params?: {
     getFriendship: buildGetFriendship(),
     sendMessages: buildSendMessages(),
     closeWindow: buildCloseWindow(),
+    initPlugins: buildInitPlugins(),
   }
 }
