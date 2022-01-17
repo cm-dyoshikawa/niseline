@@ -18,6 +18,7 @@ import { buildIsInClient } from './method/is-in-client'
 import { buildIsLoggedIn } from './method/is-logged-in'
 import { buildLogin } from './method/login'
 import { buildLogout } from './method/logout'
+import { buildSendMessages } from './method/send-messages'
 import { ConsoleLogger, Logger } from './util/logger'
 
 export const buildClientSdk = (params?: {
@@ -46,6 +47,7 @@ export const buildClientSdk = (params?: {
   | 'getContext'
   | 'getProfile'
   | 'getFriendship'
+  | 'sendMessages'
   | 'closeWindow'
 > => {
   const logger: Logger = new ConsoleLogger()
@@ -74,6 +76,7 @@ export const buildClientSdk = (params?: {
     getContext: buildGetContext(),
     getProfile: buildGetProfile(),
     getFriendship: buildGetFriendship(),
+    sendMessages: buildSendMessages(),
     closeWindow: buildCloseWindow(),
   }
 }
