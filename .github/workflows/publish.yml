@@ -1,24 +1,29 @@
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup vars
+        id: vars
+        run: echo "::set-output name=version::${GITHUB_REF##*/v}"
+
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: npm
+          registry-url: https://registry.npmjs.org
 
       - run: npm i -g npm@8
 
       - run: npm ci
 
-      - run: npm run build -w niseliff-sdk
+      - run: npm run build -w packages/niseliff-sdk
 
       - run: npm run check
 
@@ -35,6 +40,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: dyoshikawa/niseline:latest,dyoshikawa/niseline:${{ github.sha }}
+          tags: dyoshikawa/niseline:latest,dyoshikawa/niseline:${{ steps.vars.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - run: npm publish --access public -w packages/niseliff-sdk
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
