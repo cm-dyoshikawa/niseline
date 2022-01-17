@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Setup vars
         id: vars
-        run: echo "::set-output name=version::${GITHUB_REF##*/}"
+        run: echo "::set-output name=version::${GITHUB_REF##*/v}"
 
       - uses: actions/checkout@v2
 
