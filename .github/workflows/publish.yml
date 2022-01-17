@@ -18,7 +18,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build -w client-sdk
+      - run: npm run build -w niseliff-sdk
 
       - run: npm run check
 

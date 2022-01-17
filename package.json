@@ -15,7 +15,7 @@
     "prepare": "husky install",
     "postinstall": "npm run prepare",
     "check": "npm run lint:secret && npm run format:check && npm run lint:js --workspaces && npm run typec --workspaces",
-    "start:client": "npm run build -w client-sdk && npm run start -w sample-client-app",
+    "start:client": "npm run build -w niseliff-sdk && npm run start -w sample-client-app",
     "start:server": "npm run start -w server"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { buildClientSdk } from 'client-sdk'
+import { buildClientSdk } from 'niseliff-sdk'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
