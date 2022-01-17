@@ -27,7 +27,7 @@ const niseliff = buildNiseLiff()
 
 niseliff
   .init({
-    liffId: 'DEFAULT_LIFF_ID', // You can any value
+    liffId: 'DEFAULT_LIFF_ID', // You can use any value
   })
   .then(() => {
     ReactDOM.render(
@@ -56,7 +56,7 @@ const niseliff = buildNiseLiff()
 
 niseliff
   .init({
-    liffId: 'DEFAULT_LIFF_ID', // You can any value
+    liffId: 'DEFAULT_LIFF_ID', // You can use any value
   })
   .then(() => {
     ReactDOM.render(
