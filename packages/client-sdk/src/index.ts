@@ -2,6 +2,7 @@
 
 import { Liff } from '@line/liff'
 import { buildGetAccessToken } from './method/get-access-token'
+import { buildGetDecodedIdToken } from './method/get-decoded-id-token'
 import { buildGetIdToken } from './method/get-id-token'
 import { buildGetLanguage } from './method/get-language'
 import { buildGetLineVersion } from './method/get-line-version'
@@ -37,6 +38,7 @@ export const buildClientSdk = (params?: {
   | 'logout'
   | 'getAccessToken'
   | 'getIDToken'
+  | 'getDecodedIDToken'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
@@ -60,5 +62,6 @@ export const buildClientSdk = (params?: {
     getIDToken: buildGetIdToken(),
     isApiAvailable: buildIsApiAvailable(),
     login: buildLogin(),
+    getDecodedIDToken: buildGetDecodedIdToken(),
   }
 }

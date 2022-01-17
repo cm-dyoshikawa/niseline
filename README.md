@@ -89,7 +89,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [x] [Logout](https://developers.line.biz/ja/reference/liff/#logout)
 - [x] [Get access token](https://developers.line.biz/ja/reference/liff/#get-access-token)
 - [x] [Get ID token](https://developers.line.biz/ja/reference/liff/#get-id-token)
-- [ ] [Get decoded ID token](https://developers.line.biz/ja/reference/liff/#get-decoded-id-token)
+- [x] [Get decoded ID token](https://developers.line.biz/ja/reference/liff/#get-decoded-id-token)
 - [ ] [Get context](https://developers.line.biz/ja/reference/liff/#get-context)
 - [ ] [Get profile](https://developers.line.biz/ja/reference/liff/#get-profile)
 - [ ] [Get friendship](https://developers.line.biz/ja/reference/liff/#get-friendship)
