@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node -r esbuild-register src/main.ts",
     "build": "esbuild src/main.ts --bundle --platform=node --target=node16 --outfile=dist/index.js",
-    "lint:js": "eslint '**/*.{js,ts}'",
-    "lint:js:fix": "eslint --fix '**/*.{js,ts}'",
+    "lint:js": "eslint --cache '**/*.{js,ts}'",
+    "lint:js:fix": "eslint --cache --fix '**/*.{js,ts}'",
     "typec": "tsc --noEmit"
   },
   "author": "dyoshikawa",
