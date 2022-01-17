@@ -1,10 +1,16 @@
 on:
-  pull_request:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup vars
+        id: vars
+        run: echo "::set-output name=version::${GITHUB_REF##*/}"
+
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v2
@@ -34,7 +40,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: dyoshikawa/niseline:latest,dyoshikawa/niseline:${{ github.sha }}
+          tags: dyoshikawa/niseline:latest,dyoshikawa/niseline:${{ steps.vars.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
