@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-GET {{ BASE_URL }}/linely/users/me/_access-token
+GET {{ BASE_URL }}/linely/users/me/_accessToken
 Content-Type: application/json
 Authorization: Bearer DEFAULT_USER_ACCESS_TOKEN
 

@@ -33,7 +33,7 @@ fastify.post(
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
 )
 fastify.get(
-  '/linely/users/me/_access-token',
+  '/linely/users/me/_accessToken',
   container.get<RouteHandlerMethod>(
     DI_TYPE.FIND_USER_BY_ACCESS_TOKEN_FASTIFY_HANDLER
   )
