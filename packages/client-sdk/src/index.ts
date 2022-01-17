@@ -8,8 +8,10 @@ import { buildGetLineVersion } from './method/get-line-version'
 import { buildGetOs } from './method/get-os'
 import { buildGetVersion } from './method/get-version'
 import { buildInit } from './method/init'
+import { buildIsApiAvailable } from './method/is-api-available'
 import { buildIsInClient } from './method/is-in-client'
 import { buildIsLoggedIn } from './method/is-logged-in'
+import { buildLogin } from './method/login'
 import { buildLogout } from './method/logout'
 import { ConsoleLogger, Logger } from './util/logger'
 
@@ -30,6 +32,8 @@ export const buildClientSdk = (params?: {
   | 'getLineVersion'
   | 'isInClient'
   | 'isLoggedIn'
+  | 'isApiAvailable'
+  | 'login'
   | 'logout'
   | 'getAccessToken'
   | 'getIDToken'
@@ -54,5 +58,7 @@ export const buildClientSdk = (params?: {
     logout: buildLogout(),
     getAccessToken: buildGetAccessToken(),
     getIDToken: buildGetIdToken(),
+    isApiAvailable: buildIsApiAvailable(),
+    login: buildLogin(),
   }
 }
