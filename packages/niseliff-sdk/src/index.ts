@@ -20,6 +20,7 @@ import { buildIsLoggedIn } from './method/is-logged-in'
 import { buildLogin } from './method/login'
 import { buildLogout } from './method/logout'
 import { buildOpenWindow } from './method/open-window'
+import { buildScanCode } from './method/scan-code'
 import { buildSendMessages } from './method/send-messages'
 import { ConsoleLogger, Logger } from './util/logger'
 
@@ -53,6 +54,7 @@ export const buildNiseLiff = (params?: {
   | 'openWindow'
   | 'closeWindow'
   | 'initPlugins'
+  | 'scanCode'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
@@ -84,5 +86,6 @@ export const buildNiseLiff = (params?: {
     openWindow: buildOpenWindow(),
     closeWindow: buildCloseWindow(),
     initPlugins: buildInitPlugins(),
+    scanCode: buildScanCode(),
   }
 }
