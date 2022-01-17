@@ -2,80 +2,71 @@
 
 NiseLine is inspired by [LocalStack](https://github.com/localstack/localstack). Goal of this tool is to create a mock service for [LINE](https://line.me/ja/).
 
-## Setup
+## Getting Started
 
-### Docker
+Launch NiseLine server.
 
 ```bash
 docker run -d -p 3000:3000 dyoshikawa/niseline:latest
-curl http://localhost:3000/niseline/ping
-# => {"ping":"pong"}
 ```
 
-### Docker Compose
-
-```yaml
-# docker-compose.yml
-version: '3'
-services:
-  niseline:
-    image: dyoshikawa/niseline:latest
-    ports:
-      - 3000:3000
-```
+And install NiseLiff SDK.
 
 ```bash
-docker compose up -d
-curl http://localhost:3000/niseline/ping
-# => {"ping":"pong"}
+npm i @niseline/niseliff
 ```
 
-## Usage
+Use NiseLiff sdk in your client app!
+
+```tsx
+import { buildNiseLiff } from '@niseline/niseliff'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const niseliff = buildNiseLiff()
+
+niseliff
+  .init({
+    liffId: 'DEFAULT_LIFF_ID', // You can any value
+  })
+  .then(() => {
+    ReactDOM.render(
+      <React.StrictMode>Your client app</React.StrictMode>,
+      document.getElementById('root')
+    )
+  })
+```
+
+## NiseLiff SDK
+
+### Setup
 
 ```bash
-curl --request POST \
-  --url http://localhost:3000/niseline/users \
-  --header 'content-type: application/json' \
-  --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
-# => null
-
-curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  --data-urlencode 'id_token=FOO_ID' \
-  --data-urlencode 'client_id=1234567890'
-# => {"iss":"https://example.com","sub":"FOO_ID","aud":"1234567890","exp":1504169092,"iat":1504263657,"nonce":"0987654asdf","amr":["pwd"],"name":"Foo","picture":"http://example.com/foo.jpg","email":"foo@example.com"}
+npm i @niseline/niseliff
 ```
 
-## Features
+### Usage
 
-### Login API
+```tsx
+import { buildNiseLiff } from '@niseline/niseliff'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-- [ ] [Issue access token](https://developers.line.biz/ja/reference/line-login/#issue-access-token)
-- [x] [Verify access token](https://developers.line.biz/ja/reference/line-login/#verify-access-token)
-- [ ] [Refresh access token](https://developers.line.biz/ja/reference/line-login/#refresh-access-token)
-- [ ] [Revoke access token](https://developers.line.biz/ja/reference/line-login/#revoke-access-token)
-- [x] [Verify ID token](https://developers.line.biz/ja/reference/line-login/#verify-id-token)
-- [x] [Get user profile](https://developers.line.biz/ja/reference/line-login/#get-user-profile)
-- [x] [Get friendship status](https://developers.line.biz/ja/reference/line-login/#get-friendship-status)
+const niseliff = buildNiseLiff()
 
-### Messaging API
+niseliff
+  .init({
+    liffId: 'DEFAULT_LIFF_ID', // You can any value
+  })
+  .then(() => {
+    ReactDOM.render(
+      <React.StrictMode>Your client app</React.StrictMode>,
+      document.getElementById('root')
+    )
+  })
+```
 
-- [x] [Send reply message](https://developers.line.biz/ja/reference/messaging-api/#send-reply-message)
-- [x] [Send push message](https://developers.line.biz/ja/reference/messaging-api/#send-push-message)
-- [ ] [Send multicast message](https://developers.line.biz/ja/reference/messaging-api/#send-multicast-message)
-- [ ] [Send narrowcast message](https://developers.line.biz/ja/reference/messaging-api/#send-narrowcast-message)
-- [ ] [Get narrowcast progress status](https://developers.line.biz/ja/reference/messaging-api/#get-narrowcast-progress-status)
-- [ ] [Send broadcast message](https://developers.line.biz/ja/reference/messaging-api/#send-broadcast-message)
-- [ ] [Get content](https://developers.line.biz/ja/reference/messaging-api/#get-content)
-- [ ] [Get quota](https://developers.line.biz/ja/reference/messaging-api/#get-quota)
-- [ ] [Get consumption](https://developers.line.biz/ja/reference/messaging-api/#get-consumption)
-- [ ] [Get number of reply messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-reply-messages)
-- [ ] [Get number of push messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-push-messages)
-- [ ] [Get number of multicast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-multicast-messages)
-- [ ] [Get number of broadcast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-broadcast-messages)
-- [ ] [Retry api request](https://developers.line.biz/ja/reference/messaging-api/#retry-api-request)
-
-### Client SDK
+### Features
 
 - [x] [Initialize liff app](https://developers.line.biz/ja/reference/liff/#initialize-liff-app)
 - [x] [Get os](https://developers.line.biz/ja/reference/liff/#get-os)
@@ -108,3 +99,78 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [ ] [Bluetooth get availability](https://developers.line.biz/ja/reference/liff/#bluetooth-get-availability)
 - [ ] [Bluetooth request device](https://developers.line.biz/ja/reference/liff/#bluetooth-request-device)
 - [ ] [Bluetooth referring device](https://developers.line.biz/ja/reference/liff/#bluetooth-referring-device)
+
+## NiseLine Server
+
+### Setup
+
+#### Docker
+
+```bash
+docker run -d -p 3000:3000 dyoshikawa/niseline:latest
+curl http://localhost:3000/niseline/ping
+# => {"ping":"pong"}
+```
+
+#### Docker Compose
+
+```yaml
+# docker-compose.yml
+version: '3'
+services:
+  niseline:
+    image: dyoshikawa/niseline:latest
+    ports:
+      - 3000:3000
+```
+
+```bash
+docker compose up -d
+curl http://localhost:3000/niseline/ping
+# => {"ping":"pong"}
+```
+
+### Usage
+
+```bash
+curl --request POST \
+  --url http://localhost:3000/niseline/users \
+  --header 'content-type: application/json' \
+  --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
+# => null
+
+curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode 'id_token=FOO_ID' \
+  --data-urlencode 'client_id=1234567890'
+# => {"iss":"https://example.com","sub":"FOO_ID","aud":"1234567890","exp":1504169092,"iat":1504263657,"nonce":"0987654asdf","amr":["pwd"],"name":"Foo","picture":"http://example.com/foo.jpg","email":"foo@example.com"}
+```
+
+### Features
+
+#### Login API
+
+- [ ] [Issue access token](https://developers.line.biz/ja/reference/line-login/#issue-access-token)
+- [x] [Verify access token](https://developers.line.biz/ja/reference/line-login/#verify-access-token)
+- [ ] [Refresh access token](https://developers.line.biz/ja/reference/line-login/#refresh-access-token)
+- [ ] [Revoke access token](https://developers.line.biz/ja/reference/line-login/#revoke-access-token)
+- [x] [Verify ID token](https://developers.line.biz/ja/reference/line-login/#verify-id-token)
+- [x] [Get user profile](https://developers.line.biz/ja/reference/line-login/#get-user-profile)
+- [x] [Get friendship status](https://developers.line.biz/ja/reference/line-login/#get-friendship-status)
+
+#### Messaging API
+
+- [x] [Send reply message](https://developers.line.biz/ja/reference/messaging-api/#send-reply-message)
+- [x] [Send push message](https://developers.line.biz/ja/reference/messaging-api/#send-push-message)
+- [ ] [Send multicast message](https://developers.line.biz/ja/reference/messaging-api/#send-multicast-message)
+- [ ] [Send narrowcast message](https://developers.line.biz/ja/reference/messaging-api/#send-narrowcast-message)
+- [ ] [Get narrowcast progress status](https://developers.line.biz/ja/reference/messaging-api/#get-narrowcast-progress-status)
+- [ ] [Send broadcast message](https://developers.line.biz/ja/reference/messaging-api/#send-broadcast-message)
+- [ ] [Get content](https://developers.line.biz/ja/reference/messaging-api/#get-content)
+- [ ] [Get quota](https://developers.line.biz/ja/reference/messaging-api/#get-quota)
+- [ ] [Get consumption](https://developers.line.biz/ja/reference/messaging-api/#get-consumption)
+- [ ] [Get number of reply messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-reply-messages)
+- [ ] [Get number of push messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-push-messages)
+- [ ] [Get number of multicast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-multicast-messages)
+- [ ] [Get number of broadcast messages](https://developers.line.biz/ja/reference/messaging-api/#get-number-of-broadcast-messages)
+- [ ] [Retry api request](https://developers.line.biz/ja/reference/messaging-api/#retry-api-request)
