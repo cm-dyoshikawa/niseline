@@ -99,7 +99,7 @@ curl -v -X POST 'http://localhost:3000/oauth2/v2.1/verify' \
 - [ ] [Permanent link create url](https://developers.line.biz/ja/reference/liff/#permanent-link-create-url)
 - [ ] [Permanent link set extra query param](https://developers.line.biz/ja/reference/liff/#permanent-linke-set-extra-query-param)
 - [x] [Send messages](https://developers.line.biz/ja/reference/liff/#send-messages)
-- [ ] [Open window](https://developers.line.biz/ja/reference/liff/#open-window)
+- [x] [Open window](https://developers.line.biz/ja/reference/liff/#open-window)
 - [ ] [Share target picker](https://developers.line.biz/ja/reference/liff/#share-target-picker)
 - [ ] [Scan code v2](https://developers.line.biz/ja/reference/liff/#scan-code-v2)
 - [ ] [Scan code](https://developers.line.biz/ja/reference/liff/#scan-code)

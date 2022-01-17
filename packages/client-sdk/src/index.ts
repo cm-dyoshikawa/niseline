@@ -19,6 +19,7 @@ import { buildIsInClient } from './method/is-in-client'
 import { buildIsLoggedIn } from './method/is-logged-in'
 import { buildLogin } from './method/login'
 import { buildLogout } from './method/logout'
+import { buildOpenWindow } from './method/open-window'
 import { buildSendMessages } from './method/send-messages'
 import { ConsoleLogger, Logger } from './util/logger'
 
@@ -49,6 +50,7 @@ export const buildClientSdk = (params?: {
   | 'getProfile'
   | 'getFriendship'
   | 'sendMessages'
+  | 'openWindow'
   | 'closeWindow'
   | 'initPlugins'
 > => {
@@ -79,6 +81,7 @@ export const buildClientSdk = (params?: {
     getProfile: buildGetProfile(),
     getFriendship: buildGetFriendship(),
     sendMessages: buildSendMessages(),
+    openWindow: buildOpenWindow(),
     closeWindow: buildCloseWindow(),
     initPlugins: buildInitPlugins(),
   }
