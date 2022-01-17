@@ -18,8 +18,8 @@
   },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "lint:js": "eslint '**/*.{js,ts}'",
-    "lint:js:fix": "eslint --fix '**/*.{js,ts}'",
+    "lint:js": "eslint --cache '**/*.{js,ts}'",
+    "lint:js:fix": "eslint --cache --fix '**/*.{js,ts}'",
     "typec": "tsc --noEmit"
   },
   "author": "dyoshikawa",

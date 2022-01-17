@@ -13,7 +13,7 @@ export const buildInit =
     authEndpoint: string
   }): typeof liff.init =>
   async (config): ReturnType<typeof liff.init> => {
-    logger.info('init start')
+    logger.info('Init start')
 
     /**
      * Check exists tokens
@@ -22,6 +22,23 @@ export const buildInit =
     const idToken = localStorage.getItem('ID_TOKEN')
     if (accessToken != null && idToken != null) {
       logger.info('Exists tokens')
+
+      const fetchMeResult = await fetch(
+        new URL('/linely/users/me/_accessToken', authEndpoint).toString(),
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      if (!fetchMeResult.ok) {
+        logger.error('Invalid response from GET /linely/users/me/_accessToken')
+        return
+      }
+
+      const fetchMeResponseBody = await fetchMeResult.json()
+      localStorage.setItem('MY_USER', JSON.stringify(fetchMeResponseBody))
+      logger.info('Get and set my user info successfully')
       return
     }
 
@@ -58,10 +75,12 @@ export const buildInit =
         logger.error('Invalid response from POST /linely/token')
         return
       }
-      logger.info('Get tokens successfully')
+
       const json: { accessToken: string; idToken: string } = await result.json()
       localStorage.setItem('ACCESS_TOKEN', json.accessToken)
       localStorage.setItem('ID_TOKEN', json.idToken)
+      logger.info('Get and set tokens successfully')
+      window.location.reload()
       return
     }
 
