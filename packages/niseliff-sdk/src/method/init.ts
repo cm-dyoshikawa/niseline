@@ -24,7 +24,7 @@ export const buildInit =
       logger.info('Exists tokens')
 
       const fetchMeResult = await fetch(
-        new URL('/linely/users/me/_accessToken', authEndpoint).toString(),
+        new URL('/niseline/users/me/_accessToken', authEndpoint).toString(),
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -32,7 +32,9 @@ export const buildInit =
         }
       )
       if (!fetchMeResult.ok) {
-        logger.error('Invalid response from GET /linely/users/me/_accessToken')
+        logger.error(
+          'Invalid response from GET /niseline/users/me/_accessToken'
+        )
         return
       }
 
@@ -58,7 +60,7 @@ export const buildInit =
 
       logger.info('Valid state value')
       const result = await fetch(
-        new URL('/linely/token', authEndpoint).toString(),
+        new URL('/niseline/token', authEndpoint).toString(),
         {
           method: 'POST',
           headers: {
@@ -72,7 +74,7 @@ export const buildInit =
         }
       )
       if (!result.ok) {
-        logger.error('Invalid response from POST /linely/token')
+        logger.error('Invalid response from POST /niseline/token')
         return
       }
 
@@ -89,7 +91,7 @@ export const buildInit =
      */
     const newState = uuidV4()
     localStorage.setItem('STATE', newState)
-    const url = new URL('/linely/authorize', authEndpoint)
+    const url = new URL('/niseline/authorize', authEndpoint)
     url.search = new URLSearchParams({
       response_type: 'code',
       client_id: config.liffId,

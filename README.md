@@ -1,14 +1,14 @@
-# Linely
+# NiseLine
 
-Linely is inspired by [LocalStack](https://github.com/localstack/localstack). Goal of this tool is to create a mock service for [LINE](https://line.me/ja/).
+NiseLine is inspired by [LocalStack](https://github.com/localstack/localstack). Goal of this tool is to create a mock service for [LINE](https://line.me/ja/).
 
 ## Setup
 
 ### Docker
 
 ```bash
-docker run -d -p 3000:3000 dyoshikawa/linely:latest
-curl http://localhost:3000/linely/ping
+docker run -d -p 3000:3000 dyoshikawa/niseline:latest
+curl http://localhost:3000/niseline/ping
 # => {"ping":"pong"}
 ```
 
@@ -18,15 +18,15 @@ curl http://localhost:3000/linely/ping
 # docker-compose.yml
 version: '3'
 services:
-  linely:
-    image: dyoshikawa/linely:latest
+  niseline:
+    image: dyoshikawa/niseline:latest
     ports:
       - 3000:3000
 ```
 
 ```bash
 docker compose up -d
-curl http://localhost:3000/linely/ping
+curl http://localhost:3000/niseline/ping
 # => {"ping":"pong"}
 ```
 
@@ -34,7 +34,7 @@ curl http://localhost:3000/linely/ping
 
 ```bash
 curl --request POST \
-  --url http://localhost:3000/linely/users \
+  --url http://localhost:3000/niseline/users \
   --header 'content-type: application/json' \
   --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
 # => null

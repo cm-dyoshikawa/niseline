@@ -18,7 +18,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build -w client-sdk
+      - run: npm run build -w niseliff-sdk
 
       - run: npm run check
 
@@ -35,6 +35,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: dyoshikawa/linely:latest,dyoshikawa/linely:${{ github.sha }}
+          tags: dyoshikawa/niseline:latest,dyoshikawa/niseline:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

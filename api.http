@@ -2,11 +2,11 @@
 
 ###
 
-GET {{ BASE_URL }}/linely/ping
+GET {{ BASE_URL }}/niseline/ping
 
 ###
 
-POST {{ BASE_URL }}/linely/users
+POST {{ BASE_URL }}/niseline/users
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-GET {{ BASE_URL }}/linely/users/me/_accessToken
+GET {{ BASE_URL }}/niseline/users/me/_accessToken
 Content-Type: application/json
 Authorization: Bearer DEFAULT_USER_ACCESS_TOKEN
 
@@ -53,7 +53,7 @@ Authorization: Bearer DEFAULT_CHANNEL_ACCESS_TOKEN
     "replyToken": "DEFAULT_USER",
     "messages": [{
         "type": "text",
-        "text": "Hello Linely!"
+        "text": "Hello NiseLine!"
     }]
 }
 
@@ -67,6 +67,6 @@ Authorization: Bearer DEFAULT_CHANNEL_ACCESS_TOKEN
     "to": "DEFAULT_USER",
     "messages": [{
         "type": "text",
-        "text": "Hello Linely!"
+        "text": "Hello NiseLine!"
     }]
 }

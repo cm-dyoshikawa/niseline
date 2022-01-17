@@ -8,10 +8,10 @@ export interface Logger {
 
 export class ConsoleLogger implements Logger {
   info(message: string) {
-    console.log(`@linely/client-sdk INFO: ${message}`)
+    console.log(`@niseline/niseliff-sdk INFO: ${message}`)
   }
 
   error(message: string) {
-    console.error(`@linely/client-sdk ERROR: ${message}`)
+    console.error(`@niseline/niseliff-sdk ERROR: ${message}`)
   }
 }

@@ -22,32 +22,32 @@ fastify.register(pointOfView, {
 const container = bootstrap()
 
 /**
- * Linely original
+ * NiseLine original
  */
 fastify.get(
-  '/linely/ping',
+  '/niseline/ping',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_PING_HANDLER)
 )
 fastify.post(
-  '/linely/users',
+  '/niseline/users',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
 )
 fastify.get(
-  '/linely/users/me/_accessToken',
+  '/niseline/users/me/_accessToken',
   container.get<RouteHandlerMethod>(
     DI_TYPE.FIND_USER_BY_ACCESS_TOKEN_FASTIFY_HANDLER
   )
 )
 fastify.get(
-  '/linely/authorize',
+  '/niseline/authorize',
   container.get<RouteHandlerMethod>(DI_TYPE.AUTHORIZE_FASTIFY_HANDLER)
 )
 fastify.post(
-  '/linely/login',
+  '/niseline/login',
   container.get<RouteHandlerMethod>(DI_TYPE.LOGIN_FASTIFY_HANDLER)
 )
 fastify.post(
-  '/linely/token',
+  '/niseline/token',
   container.get<RouteHandlerMethod>(DI_TYPE.TOKEN_FASTIFY_HANDLER)
 )
 

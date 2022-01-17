@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  linely:
-    image: dyoshikawa/linely:latest
+  niseline:
+    image: dyoshikawa/niseline:latest
     ports:
       - 3000:3000

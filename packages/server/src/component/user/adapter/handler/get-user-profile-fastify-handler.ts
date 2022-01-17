@@ -35,6 +35,6 @@ export const buildGetUserProfileFastifyHandler =
       userId: showUserResult.id,
       displayName: 'Brown',
       pictureUrl: showUserResult.picture,
-      statusMessage: 'Hello, Linely!',
+      statusMessage: 'Hello, NiseLine!',
     } as GetUserProfileResponseBody
   }
