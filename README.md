@@ -91,7 +91,7 @@ niseliff
 - [ ] [Permanent link set extra query param](https://developers.line.biz/ja/reference/liff/#permanent-linke-set-extra-query-param)
 - [x] [Send messages](https://developers.line.biz/ja/reference/liff/#send-messages)
 - [x] [Open window](https://developers.line.biz/ja/reference/liff/#open-window)
-- [ ] [Share target picker](https://developers.line.biz/ja/reference/liff/#share-target-picker)
+- [x] [Share target picker](https://developers.line.biz/ja/reference/liff/#share-target-picker)
 - [x] [Scan code v2](https://developers.line.biz/ja/reference/liff/#scan-code-v2)
 - [x] [Scan code](https://developers.line.biz/ja/reference/liff/#scan-code)
 - [x] [Close window](https://developers.line.biz/ja/reference/liff/#close-window)

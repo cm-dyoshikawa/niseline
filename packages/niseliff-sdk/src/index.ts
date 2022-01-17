@@ -21,7 +21,9 @@ import { buildLogin } from './method/login'
 import { buildLogout } from './method/logout'
 import { buildOpenWindow } from './method/open-window'
 import { buildScanCode } from './method/scan-code'
+import { buildScanCodeV2 } from './method/scan-code-v2'
 import { buildSendMessages } from './method/send-messages'
+import { buildShareTargetPicker } from './method/share-target-picker'
 import { ConsoleLogger, Logger } from './util/logger'
 
 export const buildNiseLiff = (params?: {
@@ -54,7 +56,9 @@ export const buildNiseLiff = (params?: {
   | 'openWindow'
   | 'closeWindow'
   | 'initPlugins'
+  | 'shareTargetPicker'
   | 'scanCode'
+  | 'scanCodeV2'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
@@ -86,6 +90,8 @@ export const buildNiseLiff = (params?: {
     openWindow: buildOpenWindow(),
     closeWindow: buildCloseWindow(),
     initPlugins: buildInitPlugins(),
+    shareTargetPicker: buildShareTargetPicker(),
     scanCode: buildScanCode(),
+    scanCodeV2: buildScanCodeV2(),
   }
 }
