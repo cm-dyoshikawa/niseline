@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import { Liff } from '@line/liff'
+import { buildCloseWindow } from './method/close-window'
 import { buildGetAccessToken } from './method/get-access-token'
 import { buildGetContext } from './method/get-context'
 import { buildGetDecodedIdToken } from './method/get-decoded-id-token'
@@ -45,6 +46,7 @@ export const buildClientSdk = (params?: {
   | 'getContext'
   | 'getProfile'
   | 'getFriendship'
+  | 'closeWindow'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
@@ -72,5 +74,6 @@ export const buildClientSdk = (params?: {
     getContext: buildGetContext(),
     getProfile: buildGetProfile(),
     getFriendship: buildGetFriendship(),
+    closeWindow: buildCloseWindow(),
   }
 }
