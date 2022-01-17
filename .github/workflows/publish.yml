@@ -1,7 +1,5 @@
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 
 jobs:
   publish:
@@ -13,6 +11,7 @@ jobs:
         with:
           node-version: 16
           cache: npm
+          registry-url: https://registry.npmjs.org
 
       - run: npm i -g npm@8
 
@@ -38,3 +37,7 @@ jobs:
           tags: dyoshikawa/niseline:latest,dyoshikawa/niseline:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - run: npm publish -w packages/niseliff-sdk
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
