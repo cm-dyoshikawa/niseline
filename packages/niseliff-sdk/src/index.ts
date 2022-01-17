@@ -20,6 +20,8 @@ import { buildIsLoggedIn } from './method/is-logged-in'
 import { buildLogin } from './method/login'
 import { buildLogout } from './method/logout'
 import { buildOpenWindow } from './method/open-window'
+import { buildPermissionQuery } from './method/permission-query'
+import { buildPermissionRequestAll } from './method/permission-request-all'
 import { buildScanCode } from './method/scan-code'
 import { buildScanCodeV2 } from './method/scan-code-v2'
 import { buildSendMessages } from './method/send-messages'
@@ -52,6 +54,7 @@ export const buildNiseLiff = (params?: {
   | 'getContext'
   | 'getProfile'
   | 'getFriendship'
+  | 'permission'
   | 'sendMessages'
   | 'openWindow'
   | 'closeWindow'
@@ -85,6 +88,10 @@ export const buildNiseLiff = (params?: {
     getDecodedIDToken: buildGetDecodedIdToken(),
     getContext: buildGetContext(),
     getProfile: buildGetProfile(),
+    permission: {
+      query: buildPermissionQuery(),
+      requestAll: buildPermissionRequestAll(),
+    },
     getFriendship: buildGetFriendship(),
     sendMessages: buildSendMessages(),
     openWindow: buildOpenWindow(),
