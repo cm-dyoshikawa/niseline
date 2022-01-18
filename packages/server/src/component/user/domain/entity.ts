@@ -6,5 +6,4 @@ export interface User {
   channelId: string
   idToken: string
   accessToken: string
-  authorizationCode: string
 }

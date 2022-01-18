@@ -17,12 +17,10 @@ import { buildShowUserComponentHandler } from '../component/user/adapter/handler
 import { buildFriendshipStatusFastifyHandler } from '../component/user/adapter/handler/get-friendship-status-fastify-handler'
 import { buildGetUserProfileFastifyHandler } from '../component/user/adapter/handler/get-user-profile-fastify-handler'
 import { buildLoginFastifyHandler } from '../component/user/adapter/handler/login-fastify-handler'
-import { buildTokenFastifyHandler } from '../component/user/adapter/handler/token-fastify-handler'
 import { buildVerifyAccessTokenFastifyHandler } from '../component/user/adapter/handler/verify-access-token-fastify-handler'
 import { buildVerifyIdTokenFastifyHandler } from '../component/user/adapter/handler/verify-id-token-fastify-handler'
 import { UserLowRepository } from '../component/user/adapter/repository/user-repository'
 import { buildFindUserByAccessTokenUseCase } from '../component/user/use-case/find-user-by-access-token-use-case'
-import { buildFindUserByAuthorizationCodeUseCase } from '../component/user/use-case/find-user-by-authorization-code-use-case'
 import { buildFindUserByIdTokenUseCase } from '../component/user/use-case/find-user-by-id-token-use-case'
 import { buildFindUserUseCase } from '../component/user/use-case/find-user-use-case'
 import { buildLoginUseCase } from '../component/user/use-case/login-use-case'
@@ -113,13 +111,6 @@ export const bootstrap = (): Container => {
     })
   )
   container
-    .bind(DI_TYPE.FIND_USER_BY_AUTHORIZATION_CODE_USE_CASE)
-    .toDynamicValue(({ container: c }) =>
-      buildFindUserByAuthorizationCodeUseCase({
-        userRepository: c.get(DI_TYPE.USER_COMPONENT_USER_REPOSITORY),
-      })
-    )
-  container
     .bind(DI_TYPE.FIND_USER_BY_ACCESS_TOKEN_USE_CASE)
     .toDynamicValue(({ container: c }) =>
       buildFindUserByAccessTokenUseCase({
@@ -179,15 +170,6 @@ export const bootstrap = (): Container => {
       buildLoginFastifyHandler({
         clientEndpoint: c.get(DI_TYPE.CLIENT_ENDPOINT),
         loginUseCase: c.get(DI_TYPE.LOGIN_USE_CASE),
-      })
-    )
-  container
-    .bind(DI_TYPE.TOKEN_FASTIFY_HANDLER)
-    .toDynamicValue(({ container: c }) =>
-      buildTokenFastifyHandler({
-        findUserByAuthorizationTokenUseCase: c.get(
-          DI_TYPE.FIND_USER_BY_AUTHORIZATION_CODE_USE_CASE
-        ),
       })
     )
   container

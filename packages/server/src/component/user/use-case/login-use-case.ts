@@ -1,18 +1,14 @@
 import { GenerateUuid } from '../../../util/uuid'
+import { User } from '../domain/entity'
 import { UserRepository } from '../domain/repository'
-
-type AuthorizationCode = string
 
 export class UserNotFoundError extends Error {}
 
-export type LoginUseCase = (
-  userId: string
-) => Promise<AuthorizationCode | UserNotFoundError>
+export type LoginUseCase = (userId: string) => Promise<User | UserNotFoundError>
 
 export const buildLoginUseCase =
   ({
     userRepository,
-    generateUuid,
   }: {
     userRepository: UserRepository
     generateUuid: GenerateUuid
@@ -23,7 +19,6 @@ export const buildLoginUseCase =
       return new UserNotFoundError()
     }
 
-    const uuid = generateUuid()
-    await userRepository.save({ ...user, authorizationCode: uuid })
-    return uuid
+    await userRepository.save({ ...user })
+    return user
   }

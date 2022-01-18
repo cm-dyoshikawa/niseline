@@ -46,10 +46,6 @@ fastify.post(
   '/niseline/login',
   container.get<RouteHandlerMethod>(DI_TYPE.LOGIN_FASTIFY_HANDLER)
 )
-fastify.post(
-  '/niseline/token',
-  container.get<RouteHandlerMethod>(DI_TYPE.TOKEN_FASTIFY_HANDLER)
-)
 
 /**
  * Login API
