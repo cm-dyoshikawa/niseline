@@ -68,8 +68,8 @@ niseliff
 
 ### Features
 
-- [ ] [Ready](https://developers.line.biz/ja/reference/liff/#ready)
-- [ ] [Id](https://developers.line.biz/ja/reference/liff/#id)
+- [x] [Ready](https://developers.line.biz/ja/reference/liff/#ready)
+- [x] [Id](https://developers.line.biz/ja/reference/liff/#id)
 - [x] [Initialize liff app](https://developers.line.biz/ja/reference/liff/#initialize-liff-app)
 - [x] [Get os](https://developers.line.biz/ja/reference/liff/#get-os)
 - [x] [Get language](https://developers.line.biz/ja/reference/liff/#get-language)
