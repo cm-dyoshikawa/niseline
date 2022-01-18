@@ -33,7 +33,7 @@ import { buildSendMessages } from './method/send-messages'
 import { buildShareTargetPicker } from './method/share-target-picker'
 import { ConsoleLogger, Logger } from './util/logger'
 
-export const buildNiseLiff = (params?: {
+export const buildNiseliff = (params?: {
   niseliffServerEndpoint?: string
   liffId?: string
   os?: 'ios' | 'android' | 'web' | undefined
