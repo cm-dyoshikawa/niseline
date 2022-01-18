@@ -12,6 +12,7 @@ import { buildGetLineVersion } from './method/get-line-version'
 import { buildGetOs } from './method/get-os'
 import { buildGetProfile } from './method/get-profile'
 import { buildGetVersion } from './method/get-version'
+import { buildId } from './method/id'
 import { buildInit } from './method/init'
 import { buildInitPlugins } from './method/init-plugins'
 import { buildIsApiAvailable } from './method/is-api-available'
@@ -25,6 +26,7 @@ import { buildPermanentCreateUrlBy } from './method/permanent-link-create-url-by
 import { buildPermanentLinkSetExtraQueryParam } from './method/permanent-link-set-extra-query-param'
 import { buildPermissionQuery } from './method/permission-query'
 import { buildPermissionRequestAll } from './method/permission-request-all'
+import { buildReady } from './method/ready'
 import { buildScanCode } from './method/scan-code'
 import { buildScanCodeV2 } from './method/scan-code-v2'
 import { buildSendMessages } from './method/send-messages'
@@ -34,6 +36,7 @@ import { ConsoleLogger, Logger } from './util/logger'
 export const buildNiseLiff = (params?: {
   clientEndpoint?: string
   authEndpoint?: string
+  liffId?: string
   os?: 'ios' | 'android' | 'web' | undefined
   language?: string
   version?: string
@@ -47,8 +50,6 @@ export const buildNiseLiff = (params?: {
   | 'subWindow'
   | 'isSubWindow'
   | 'use'
-  | 'ready'
-  | 'id'
   | '_dispatchEvent'
   | '_call'
   | '_addListener'
@@ -58,6 +59,7 @@ export const buildNiseLiff = (params?: {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
   const authEndpoint = params?.authEndpoint ?? 'http://localhost:3000'
+  const liffId = params?.liffId ?? 'DEFAULT_LIFF_ID'
   const os = params?.os ?? 'web'
   const language = params?.language ?? 'ja'
   const version = params?.version ?? '2.16.1'
@@ -65,6 +67,8 @@ export const buildNiseLiff = (params?: {
   const isInClient = params?.isInClient ?? false
 
   return {
+    id: buildId(liffId),
+    ready: buildReady(),
     init: buildInit({ logger, clientEndpoint, authEndpoint }),
     getOS: buildGetOs(os),
     getLanguage: buildGetLanguage(language),
