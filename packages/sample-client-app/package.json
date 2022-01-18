@@ -5,8 +5,8 @@
   "author": "dyoshikawa",
   "license": "MIT",
   "scripts": {
-    "lint:js": "eslint --cache '**/*.{js,ts}'",
-    "lint:js:fix": "eslint --cache --fix '**/*.{js,ts}'",
+    "lint:js": "eslint --cache '**/*.{js,ts,jsx,tsx}'",
+    "lint:js:fix": "eslint --cache --fix '**/*.{js,ts,jsx,tsx}'",
     "typec": "tsc --noEmit",
     "start": "vite --port 3001 --open",
     "start:http": "vite --port 3001 --https false",
@@ -14,7 +14,7 @@
     "tailwindcss": "tailwindcss"
   },
   "dependencies": {
-    "@line/liff": "^2.18.1",
+    "@line/liff": "2.18.1",
     "@niseline/niseliff": "file:packages/niseliff-sdk",
     "react": "17.0.2",
     "react-dom": "17.0.2"
@@ -23,9 +23,10 @@
     "@types/react": "17.0.33",
     "@types/react-dom": "17.0.10",
     "@vitejs/plugin-react": "1.0.7",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "10.4.2",
     "devcert": "1.2.0",
-    "postcss": "^8.4.5",
+    "eslint-plugin-tailwindcss": "3.3.0",
+    "postcss": "8.4.5",
     "tailwindcss": "3.0.15",
     "vite": "2.7.2"
   }
