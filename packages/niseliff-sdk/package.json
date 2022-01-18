@@ -4,8 +4,7 @@
   "private": false,
   "main": "dist/index.js",
   "dependencies": {
-    "@line/liff": "2.18.1",
-    "uuid": "8.3.2"
+    "@line/liff": "2.18.1"
   },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --outfile=dist/index.js && tsc --emitDeclarationOnly --outDir dist",
@@ -16,7 +15,6 @@
   "author": "dyoshikawa",
   "license": "MIT",
   "devDependencies": {
-    "@types/uuid": "^8.3.4",
     "esbuild": "^0.14.11"
   }
 }
