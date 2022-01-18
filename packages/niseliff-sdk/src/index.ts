@@ -39,33 +39,21 @@ export const buildNiseLiff = (params?: {
   version?: string
   lineVersion?: string
   isInClient?: boolean
-}): Pick<
+}): Omit<
   Liff,
-  | 'init'
-  | 'getOS'
-  | 'getLanguage'
-  | 'getVersion'
-  | 'getLineVersion'
-  | 'isInClient'
-  | 'isLoggedIn'
-  | 'isApiAvailable'
-  | 'login'
-  | 'logout'
-  | 'getAccessToken'
-  | 'getIDToken'
-  | 'getDecodedIDToken'
-  | 'getContext'
-  | 'getProfile'
-  | 'getFriendship'
-  | 'permission'
-  | 'permanentLink'
-  | 'sendMessages'
-  | 'openWindow'
-  | 'closeWindow'
-  | 'initPlugins'
-  | 'shareTargetPicker'
-  | 'scanCode'
-  | 'scanCodeV2'
+  | 'getAId'
+  | 'getProfilePlus'
+  | 'getIsVideoAutoPlay'
+  | 'subWindow'
+  | 'isSubWindow'
+  | 'use'
+  | 'ready'
+  | 'id'
+  | '_dispatchEvent'
+  | '_call'
+  | '_addListener'
+  | '_removeListener'
+  | '_postMessage'
 > => {
   const logger: Logger = new ConsoleLogger()
   const clientEndpoint = params?.clientEndpoint ?? window.location.origin
