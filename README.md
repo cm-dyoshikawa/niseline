@@ -1,6 +1,6 @@
 # NiseLine
 
-<img src="https://github.com/cm-dyoshikawa/niseline/blob/readme/niseline-logo.png" width="1200" height=630 style="height: auto;" />
+<img src="https://github.com/cm-dyoshikawa/niseline/blob/readme/niseline-logo.png" width="1200" height=630 style="max-width: 100%; height: auto;" />
 
 NiseLine is inspired by [LocalStack](https://github.com/localstack/localstack). Goal of this tool is to create a mock service for [LINE](https://line.me/ja/).
 
