@@ -51,20 +51,6 @@ export class UserLowRepository implements UserRepository {
     return userRecord
   }
 
-  async findByAuthorizationCode(
-    authorizationCode: string
-  ): Promise<User | undefined> {
-    await this.low.read()
-    const userRecord: UserRecord | undefined = this.low.data?.find(
-      (r) => r.authorizationCode === authorizationCode
-    )
-    if (userRecord == null) {
-      return undefined
-    }
-
-    return userRecord
-  }
-
   async save(user: User): Promise<void> {
     await this.low.read()
     this.low.data = this.low.data!.concat(user)

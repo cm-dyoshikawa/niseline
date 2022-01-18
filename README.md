@@ -21,15 +21,23 @@ npm i @niseline/niseliff
 Use NiseLiff sdk in your client app!
 
 ```tsx
-import { buildNiseLiff } from '@niseline/niseliff'
+import { buildNiseliff } from '@niseline/niseliff'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const niseliff = buildNiseLiff()
+declare global {
+  interface Window {
+    liff: Liff
+  }
+}
 
-niseliff
+window.liff = buildNiseliff({
+  liffId: 'DUMMY_LIFF_ID',
+})
+
+window.liff
   .init({
-    liffId: 'DEFAULT_LIFF_ID', // You can use any value
+    liffId: 'DUMMY_LIFF_ID',
   })
   .then(() => {
     ReactDOM.render(
@@ -49,23 +57,37 @@ npm i @niseline/niseliff
 
 ### Usage
 
+```ts
+// /path/to/config.ts
+
+export const env: 'local' | 'development' | 'staging' | 'production' = 'local'
+```
+
+```ts
+// /path/to/liff.ts
+
+import * as config from '/path/to/config'
+import realLiff from '@line/liff'
+import { buildNiseliff } from '@niseline/niseliff'
+
+const liff =
+  config.env === 'local' ? buildNiseliff({ liffId: 'DUMMY_LIFF_ID' }) : realLiff
+export default liff
+```
+
 ```tsx
-import { buildNiseLiff } from '@niseline/niseliff'
+// /path/to/index.tsx
+
+import liff from '/path/to/liff'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const niseliff = buildNiseLiff()
-
-niseliff
-  .init({
-    liffId: 'DEFAULT_LIFF_ID', // You can use any value
-  })
-  .then(() => {
-    ReactDOM.render(
-      <React.StrictMode>Your client app</React.StrictMode>,
-      document.getElementById('root')
-    )
-  })
+liff.init({ liffId: 'DUMMY_LIFF_ID' }).then(() => {
+  ReactDOM.render(
+    <React.StrictMode>Your client app</React.StrictMode>,
+    document.getElementById('root')
+  )
+})
 ```
 
 ### Features
@@ -112,7 +134,7 @@ niseliff
 
 ```bash
 docker run -d -p 3000:3000 dyoshikawa/niseline:latest
-curl http://localhost:3000/niseline/ping
+curl http://localhost:3000/niseline/api/ping
 # => {"ping":"pong"}
 ```
 
@@ -130,7 +152,7 @@ services:
 
 ```bash
 docker compose up -d
-curl http://localhost:3000/niseline/ping
+curl http://localhost:3000/niseline/api/ping
 # => {"ping":"pong"}
 ```
 
@@ -138,7 +160,7 @@ curl http://localhost:3000/niseline/ping
 
 ```bash
 curl --request POST \
-  --url http://localhost:3000/niseline/users \
+  --url http://localhost:3000/niseline/api/users \
   --header 'content-type: application/json' \
   --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
 # => null

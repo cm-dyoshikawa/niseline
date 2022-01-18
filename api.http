@@ -2,11 +2,11 @@
 
 ###
 
-GET {{ BASE_URL }}/niseline/ping
+GET {{ BASE_URL }}/niseline/api/ping
 
 ###
 
-POST {{ BASE_URL }}/niseline/users
+POST {{ BASE_URL }}/niseline/api/users
 Content-Type: application/json
 
 {
@@ -18,9 +18,8 @@ Content-Type: application/json
 
 ###
 
-GET {{ BASE_URL }}/niseline/users/me/_accessToken
+GET {{ BASE_URL }}/niseline/api/users/DEFAULT_USER
 Content-Type: application/json
-Authorization: Bearer DEFAULT_USER_ACCESS_TOKEN
 
 ###
 
