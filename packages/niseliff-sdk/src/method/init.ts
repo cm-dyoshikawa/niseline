@@ -1,87 +1,49 @@
 import liff from '@line/liff'
-import { v4 as uuidV4 } from 'uuid'
+import { User } from '../type'
 import { Logger } from '../util/logger'
 
 export const buildInit =
   ({
     logger,
-    clientEndpoint,
-    authEndpoint,
+    niseliffServerEndpoint,
   }: {
     logger: Logger
-    clientEndpoint: string
-    authEndpoint: string
+    niseliffServerEndpoint: string
   }): typeof liff.init =>
-  async (config): ReturnType<typeof liff.init> => {
+  async (): ReturnType<typeof liff.init> => {
     logger.info('Init start')
 
     /**
-     * Check exists tokens
+     * Check user info
      */
-    const accessToken = localStorage.getItem('ACCESS_TOKEN')
-    const idToken = localStorage.getItem('ID_TOKEN')
-    if (accessToken != null && idToken != null) {
-      logger.info('Exists tokens')
-
-      const fetchMeResult = await fetch(
-        new URL('/niseline/users/me/_accessToken', authEndpoint).toString(),
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      if (!fetchMeResult.ok) {
-        logger.error(
-          'Invalid response from GET /niseline/users/me/_accessToken'
-        )
-        return
-      }
-
-      const fetchMeResponseBody = await fetchMeResult.json()
-      localStorage.setItem('MY_USER', JSON.stringify(fetchMeResponseBody))
-      logger.info('Get and set my user info successfully')
+    const userStr = localStorage.getItem('MY_USER')
+    if (userStr != null) {
+      logger.info(`Get my user info successfully`)
       return
     }
 
-    logger.info('Not exists tokens')
+    logger.info('Not exists my user info')
 
     /**
-     * Check state and authorization code
+     * Check userId
      */
     const urlSearchParams = new URLSearchParams(window.location.search)
-    const authorizationCode = urlSearchParams.get('code')
-    const state = urlSearchParams.get('state')
-    if (authorizationCode != null && state != null) {
-      if (state !== localStorage.getItem('STATE')) {
-        logger.error('Invalid state value')
-        return
-      }
-
-      logger.info('Valid state value')
+    const userId = urlSearchParams.get('userId')
+    if (userId != null) {
       const result = await fetch(
-        new URL('/niseline/token', authEndpoint).toString(),
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            grantType: 'authorization_code',
-            redirectUri: clientEndpoint,
-            code: authorizationCode,
-          }),
-        }
+        new URL(
+          `/niseline/api/users/${userId}`,
+          niseliffServerEndpoint
+        ).toString()
       )
       if (!result.ok) {
-        logger.error('Invalid response from POST /niseline/token')
+        logger.error(`Invalid response from GET /niseline/api/users/${userId}`)
         return
       }
 
-      const json: { accessToken: string; idToken: string } = await result.json()
-      localStorage.setItem('ACCESS_TOKEN', json.accessToken)
-      localStorage.setItem('ID_TOKEN', json.idToken)
-      logger.info('Get and set tokens successfully')
+      const json: User = await result.json()
+      localStorage.setItem('MY_USER', JSON.stringify(json))
+      logger.info('Get and set my user info successfully')
       window.location.reload()
       return
     }
@@ -89,15 +51,6 @@ export const buildInit =
     /**
      * Start authorization flow
      */
-    const newState = uuidV4()
-    localStorage.setItem('STATE', newState)
-    const url = new URL('/niseline/authorize', authEndpoint)
-    url.search = new URLSearchParams({
-      response_type: 'code',
-      client_id: config.liffId,
-      scope: 'default',
-      redirect_uri: clientEndpoint,
-      state: newState,
-    }).toString()
+    const url = new URL('/niseline/authorize', niseliffServerEndpoint)
     window.location.href = url.toString()
   }

@@ -112,7 +112,7 @@ niseliff
 
 ```bash
 docker run -d -p 3000:3000 dyoshikawa/niseline:latest
-curl http://localhost:3000/niseline/ping
+curl http://localhost:3000/niseline/api/ping
 # => {"ping":"pong"}
 ```
 
@@ -130,7 +130,7 @@ services:
 
 ```bash
 docker compose up -d
-curl http://localhost:3000/niseline/ping
+curl http://localhost:3000/niseline/api/ping
 # => {"ping":"pong"}
 ```
 
@@ -138,7 +138,7 @@ curl http://localhost:3000/niseline/ping
 
 ```bash
 curl --request POST \
-  --url http://localhost:3000/niseline/users \
+  --url http://localhost:3000/niseline/api/users \
   --header 'content-type: application/json' \
   --data '{"id": "FOO_ID","name": "Foo","picture": "http://example.com/foo.jpg","email": "foo@example.com"}'
 # => null

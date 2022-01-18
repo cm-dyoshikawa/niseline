@@ -12,7 +12,6 @@ export const buildLoginFastifyHandler =
   async (request, reply) => {
     const body = request.body as {
       userId: string
-      state: string
     }
     const user = await loginUseCase(body.userId)
     if (user instanceof UserNotFoundError) {

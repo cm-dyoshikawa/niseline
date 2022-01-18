@@ -25,18 +25,16 @@ const container = bootstrap()
  * NiseLine original
  */
 fastify.get(
-  '/niseline/ping',
+  '/niseline/api/ping',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_PING_HANDLER)
 )
 fastify.post(
-  '/niseline/users',
+  '/niseline/api/users',
   container.get<RouteHandlerMethod>(DI_TYPE.DEBUG_REGISTER_USER_HANDLER)
 )
 fastify.get(
-  '/niseline/users/me/_accessToken',
-  container.get<RouteHandlerMethod>(
-    DI_TYPE.FIND_USER_BY_ACCESS_TOKEN_FASTIFY_HANDLER
-  )
+  '/niseline/api/users/:id',
+  container.get<RouteHandlerMethod>(DI_TYPE.FIND_USER_BY_ID_FASTIFY_HANDLER)
 )
 fastify.get(
   '/niseline/authorize',

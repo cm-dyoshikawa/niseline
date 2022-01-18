@@ -12,7 +12,7 @@ import { buildSendReplyMessageUseCase } from '../component/message/use-case/send
 import { buildAuthorizeFastifyHandler } from '../component/user/adapter/handler/authorize-fastify-handler'
 import { buildDebugPingFastifyHandler } from '../component/user/adapter/handler/debug-ping-fastify-handler'
 import { buildDebugRegisterUserFastifyHandler } from '../component/user/adapter/handler/debug-register-user-fastify-handler'
-import { buildFindUserByAccessTokenFastifyHandler } from '../component/user/adapter/handler/find-user-by-access-token-fastify-handler'
+import { buildFindUserByIdFastifyHandler } from '../component/user/adapter/handler/find-user-by-id-fastify-handler'
 import { buildShowUserComponentHandler } from '../component/user/adapter/handler/find-user-component-handler'
 import { buildFriendshipStatusFastifyHandler } from '../component/user/adapter/handler/get-friendship-status-fastify-handler'
 import { buildGetUserProfileFastifyHandler } from '../component/user/adapter/handler/get-user-profile-fastify-handler'
@@ -173,12 +173,10 @@ export const bootstrap = (): Container => {
       })
     )
   container
-    .bind(DI_TYPE.FIND_USER_BY_ACCESS_TOKEN_FASTIFY_HANDLER)
+    .bind(DI_TYPE.FIND_USER_BY_ID_FASTIFY_HANDLER)
     .toDynamicValue(({ container: c }) =>
-      buildFindUserByAccessTokenFastifyHandler({
-        findUserByAccessTokenUseCase: c.get(
-          DI_TYPE.FIND_USER_BY_ACCESS_TOKEN_USE_CASE
-        ),
+      buildFindUserByIdFastifyHandler({
+        findUserUseCase: c.get(DI_TYPE.FIND_USER_USE_CASE),
       })
     )
 

@@ -34,8 +34,7 @@ import { buildShareTargetPicker } from './method/share-target-picker'
 import { ConsoleLogger, Logger } from './util/logger'
 
 export const buildNiseLiff = (params?: {
-  clientEndpoint?: string
-  authEndpoint?: string
+  niseliffServerEndpoint?: string
   liffId?: string
   os?: 'ios' | 'android' | 'web' | undefined
   language?: string
@@ -57,8 +56,8 @@ export const buildNiseLiff = (params?: {
   | '_postMessage'
 > => {
   const logger: Logger = new ConsoleLogger()
-  const clientEndpoint = params?.clientEndpoint ?? window.location.origin
-  const authEndpoint = params?.authEndpoint ?? 'http://localhost:3000'
+  const niseliffServerEndpoint =
+    params?.niseliffServerEndpoint ?? 'http://localhost:3000'
   const liffId = params?.liffId ?? 'DEFAULT_LIFF_ID'
   const os = params?.os ?? 'web'
   const language = params?.language ?? 'ja'
@@ -69,7 +68,7 @@ export const buildNiseLiff = (params?: {
   return {
     id: buildId(liffId),
     ready: buildReady(),
-    init: buildInit({ logger, clientEndpoint, authEndpoint }),
+    init: buildInit({ logger, niseliffServerEndpoint }),
     getOS: buildGetOs(os),
     getLanguage: buildGetLanguage(language),
     getVersion: buildGetVersion(version),
