@@ -20,6 +20,9 @@ import { buildIsLoggedIn } from './method/is-logged-in'
 import { buildLogin } from './method/login'
 import { buildLogout } from './method/logout'
 import { buildOpenWindow } from './method/open-window'
+import { buildPermanentCreateUrl } from './method/permanent-link-create'
+import { buildPermanentCreateUrlBy } from './method/permanent-link-create-url-by'
+import { buildPermanentLinkSetExtraQueryParam } from './method/permanent-link-set-extra-query-param'
 import { buildPermissionQuery } from './method/permission-query'
 import { buildPermissionRequestAll } from './method/permission-request-all'
 import { buildScanCode } from './method/scan-code'
@@ -55,6 +58,7 @@ export const buildNiseLiff = (params?: {
   | 'getProfile'
   | 'getFriendship'
   | 'permission'
+  | 'permanentLink'
   | 'sendMessages'
   | 'openWindow'
   | 'closeWindow'
@@ -93,6 +97,11 @@ export const buildNiseLiff = (params?: {
       requestAll: buildPermissionRequestAll(),
     },
     getFriendship: buildGetFriendship(),
+    permanentLink: {
+      createUrlBy: buildPermanentCreateUrlBy(),
+      createUrl: buildPermanentCreateUrl(),
+      setExtraQueryParam: buildPermanentLinkSetExtraQueryParam(),
+    },
     sendMessages: buildSendMessages(),
     openWindow: buildOpenWindow(),
     closeWindow: buildCloseWindow(),
