@@ -5,9 +5,11 @@ import { Logger } from '../util/logger'
 export const buildInit =
   ({
     logger,
+    clientEndpoint,
     niseliffServerEndpoint,
   }: {
     logger: Logger
+    clientEndpoint: string
     niseliffServerEndpoint: string
   }): typeof liff.init =>
   async (): ReturnType<typeof liff.init> => {
@@ -52,5 +54,8 @@ export const buildInit =
      * Start authorization flow
      */
     const url = new URL('/niseline/authorize', niseliffServerEndpoint)
+    url.search = new URLSearchParams({
+      redirectUri: clientEndpoint,
+    }).toString()
     window.location.href = url.toString()
   }
