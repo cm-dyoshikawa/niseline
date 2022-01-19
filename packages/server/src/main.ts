@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import 'source-map-support/register'
 import ejs from 'ejs'
 import Fastify, { RouteHandlerMethod } from 'fastify'
 import fastifyCors from 'fastify-cors'
