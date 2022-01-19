@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "node -r esbuild-register src/main.ts",
-    "build": "esbuild src/main.ts --bundle --platform=node --target=node16 --outfile=dist/index.js",
+    "build": "esbuild src/main.ts --bundle --minify --sourcemap --platform=node --target=node16 --outfile=dist/index.js",
     "lint:js": "eslint --cache '**/*.{js,ts}'",
     "lint:js:fix": "eslint --cache --fix '**/*.{js,ts}'",
     "typec": "tsc --noEmit"
@@ -22,6 +22,7 @@
     "lowdb": "3.0.0",
     "point-of-view": "5.0.0",
     "reflect-metadata": "0.1.13",
+    "source-map-support": "^0.5.21",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
